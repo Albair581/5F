@@ -29,7 +29,7 @@ function loadLanguage(lang) {
     }
 }
 
-function loadPage(page) {
+function loadPage(page, lang) {
     // Update active nav link
     $('.nav-link').removeClass('active');
     $(`.nav-link[href="#${page}"]`).addClass('active');
@@ -38,7 +38,7 @@ function loadPage(page) {
     $.get(`templates/${page}.html`, function(data) {
         $('#page-content').html(data);
         // Update translations for new content
-        loadLanguage(currentLang);
+        loadLanguage(lang);
         // Scroll to top
         window.scrollTo(0, 0);
     }).fail(function() {
@@ -64,8 +64,11 @@ window.addEventListener('popstate', function() {
 
 
 $(document).ready(function() {
+    // Initialize language
+    let currentLang = localStorage.getItem('language') || detectBrowserLanguage();
+    loadLanguage(currentLang);
     const initialPage = window.location.hash.replace('#', '') || 'home';
-    loadPage(initialPage);
+    loadPage(initialPage, currentLang);
 
     // Mobile menu toggle
     $('.navbar-toggler').click(function() {
@@ -106,13 +109,9 @@ $(document).ready(function() {
         $('body').addClass('dark-mode');
     }
 
-    // Initialize language
-    let currentLang = localStorage.getItem('language') || detectBrowserLanguage();
-    loadLanguage(currentLang);
-
     // Language selector change handler
     $('#language-select').change(function() {
         const newLang = $(this).val();
-        loadLanguage(newLang);
+        loadLanguage(newLang, currentLang);
     });
 });
