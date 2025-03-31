@@ -39,7 +39,7 @@ function loadPage(page, lang) {
     // Update active nav link (use basePage for selector)
     $('.nav-link').removeClass('active');
     $(`.nav-link[href="#${basePage}"]`).addClass('active');
-    if (page == "#settings-modal") return;
+    if (basePage == "settings-modal") return;
     // Load content using basePage
     $.get(`templates/${basePage}.html`, function(data) {
         $('#page-content').html(data);
