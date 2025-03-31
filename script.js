@@ -48,8 +48,9 @@ function loadPage(page, lang) {
         const params = new URLSearchParams(query);
         
         let errored = false;
-        if (params.size != 6) errored = true;
-        if (!(params.has("access") && params.has("key") && params.has("accessed") && params.has("client") && params.has("numc") && params.has("email"))) errored = true;
+        if (!(params.has("access") && params.has("key") && params.has("accessed") && params.has("client") && params.has("numc") && params.has("email"))) {
+            if (params.size != 0) errored = true;
+        }
         if (errored && basePage == "ebooks") $('#page-content').html('<h2>Error parsing authorization link. 驗證連結出錯。</h2>');
         let ebooksd = `
             <section class="welcome-section">
@@ -61,7 +62,7 @@ function loadPage(page, lang) {
                 </div>
             </section>
         `;
-        if (basePage == "ebooks") $('#page-content').html(ebooksd);
+        if (basePage == "ebooks" && !errored) $('#page-content').html(ebooksd);
         // Update translations for new content
         loadLanguage(lang);
         // Scroll to top
@@ -71,7 +72,7 @@ function loadPage(page, lang) {
     });
     
     // Update URL without reload
-    history.pushState(null, null, `?${query}#${basePage}`);
+    history.pushState(null, null, (query === '' ? '' : `?${query}`) + `#${basePage}`);
 }
 
 // Handle navigation clicks
