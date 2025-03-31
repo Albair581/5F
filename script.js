@@ -6,6 +6,7 @@ function detectBrowserLanguage() {
 }
 
 function loadLanguage(lang) {
+    console.log(lang);
     // Update all translatable elements
     $('[data-i18n]').each(function() {
         const key = $(this).data('i18n');
@@ -30,36 +31,58 @@ function loadLanguage(lang) {
 }
 
 function loadPage(page, lang) {
-    // Update active nav link
-    $('.nav-link').removeClass('active');
-    $(`.nav-link[href="#${page}"]`).addClass('active');
+    // Extract the base page name without parameters
+    // Handle cases where page might be "home?happy=true" or "#home?happy=true"
+    const basePage = page.replace(/^#/, '').split(/[?#]/)[0] || 'home';
+    const query = window.location.search.replace("?", "");
     
-    // Load content
-    $.get(`templates/${page}.html`, function(data) {
+    // Update active nav link (use basePage for selector)
+    $('.nav-link').removeClass('active');
+    $(`.nav-link[href="#${basePage}"]`).addClass('active');
+    
+    // Load content using basePage
+    $.get(`templates/${basePage}.html`, function(data) {
         $('#page-content').html(data);
+        
+        // Log URL parameters if they exist
+        const params = new URLSearchParams(query);
+        
+        let errored = false;
+        if (params.size != 6) errored = true;
+        if (!(params.has("access") && params.has("key") && params.has("accessed") && params.has("client") && params.has("numc") && params.has("email"))) errored = true;
+        if (errored && basePage == "ebooks") $('#page-content').html('<h2>Error parsing authorization link. 驗證連結出錯。</h2>');
+        let ebooksd = `
+            <section class="welcome-section">
+                <h2 data-i18n="authenticate-book">Authorize Book</h2>
+                <h3 style="display: inline-block" data-i18n="auth-bookid">Book Id</h3>&nbsp;&nbsp;<h3 style="display: inline-block">${params.get("access")}</h3>
+            </section>
+        `;
+        if (basePage == "ebooks") $('#page-content').html(ebooksd);
         // Update translations for new content
         loadLanguage(lang);
         // Scroll to top
         window.scrollTo(0, 0);
     }).fail(function() {
-        $('#page-content').html('<h2>Page not found</h2>');
+        $('#page-content').html('<h2>Page not found. 不存在的頁面。</h2>');
     });
     
     // Update URL without reload
-    history.pushState(null, null, `#${page}`);
+    history.pushState(null, null, `?${query}#${basePage}`);
 }
 
 // Handle navigation clicks
 $(document).on('click', '.nav-link:not(#settings-link)', function(e) {
     e.preventDefault();
     const page = $(this).attr('href').replace('#', '');
-    loadPage(page);
+    const lang = localStorage.getItem('language') || detectBrowserLanguage();
+    loadPage(page, lang);
 });
 
 // Handle browser back/forward
 window.addEventListener('popstate', function() {
     const page = window.location.hash.replace('#', '') || 'home';
-    loadPage(page);
+    const lang = localStorage.getItem('language') || detectBrowserLanguage();
+    loadPage(page, lang);
 });
 
 
@@ -67,8 +90,9 @@ $(document).ready(function() {
     // Initialize language
     let currentLang = localStorage.getItem('language') || detectBrowserLanguage();
     loadLanguage(currentLang);
-    const initialPage = window.location.hash.replace('#', '') || 'home';
-    loadPage(initialPage, currentLang);
+
+    const hash = window.location.href.split("#")[1];
+    loadPage(hash, currentLang);
 
     // Mobile menu toggle
     $('.navbar-toggler').click(function() {
@@ -112,6 +136,6 @@ $(document).ready(function() {
     // Language selector change handler
     $('#language-select').change(function() {
         const newLang = $(this).val();
-        loadLanguage(newLang, currentLang);
+        loadLanguage(newLang);
     });
 });
