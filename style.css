@@ -97,7 +97,7 @@ body {
     margin-left: 1.5rem;
 }
 
-.nav-link {
+.nav-link, .ns {
     color: var(--text-color);
     text-decoration: none;
     font-weight: 500;
