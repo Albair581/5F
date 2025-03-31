@@ -53,8 +53,12 @@ function loadPage(page, lang) {
         if (errored && basePage == "ebooks") $('#page-content').html('<h2>Error parsing authorization link. 驗證連結出錯。</h2>');
         let ebooksd = `
             <section class="welcome-section">
-                <h2 data-i18n="authenticate-book">Authorize Book</h2>
-                <h3 style="display: inline-block" data-i18n="auth-bookid">Book Id</h3>&nbsp;&nbsp;<h3 style="display: inline-block">${params.get("access")}</h3>
+                <div class="boxxx">
+                    <h2 data-i18n="authenticate-book" style="margin-bottom: -5px">Authorize Book</h2>
+                    <h3 style="display: inline-block; font-size: 1.65em;" data-i18n="auth-client">Hello</h3>&nbsp;&nbsp;<h3 style="display: inline-block; font-size: 1.65em;">${params.get("client").charAt(0).toUpperCase() + params.get("client").slice(1)}</h3><h3 style="display: inline-block; font-size: 1.65em;">&nbsp;${params.get("numc").toUpperCase()}!</h3><br>
+                    <h3 style="display: inline-block" data-i18n="auth-bookid">Book Id</h3>&nbsp;&nbsp;<h3 style="display: inline-block">${params.get("access")}</h3><br>
+                    <h3 style="display: inline-block" data-i18n="auth-bookkey">Access Key</h3>&nbsp;&nbsp;<h3 style="display: inline-block">${params.get("key")}</h3>
+                </div>
             </section>
         `;
         if (basePage == "ebooks") $('#page-content').html(ebooksd);
