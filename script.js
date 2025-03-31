@@ -91,7 +91,7 @@ $(document).on('click', '.nav-link:not(#settings-link)', function(e) {
 
 // Handle browser back/forward
 window.addEventListener('popstate', function() {
-    const page = window.location.hash.replace('#', '') || 'home';
+    const page = window.location.href.split("#")[1] || 'home';
     const lang = localStorage.getItem('language') || detectBrowserLanguage();
     loadPage(page, lang);
 });
