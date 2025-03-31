@@ -32,8 +32,8 @@ function loadLanguage(lang) {
 
 function loadPage(page, lang) {
     // Extract the base page name without parameters
-    // Handle cases where page might be "home?happy=true" or "#home?happy=true"
-    const basePage = page.replace(/^#/, '').split(/[?#]/)[0] || 'home';
+
+    const basePage = page ? (page.replace("#", '').split(/[?#]/)[0] || 'home') : 'home';
     const query = window.location.search.replace("?", "");
     
     // Update active nav link (use basePage for selector)
