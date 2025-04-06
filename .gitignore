@@ -179,4 +179,4 @@ cython_debug/
 .pypirc
 
 # sensitive stuff
-.pem
+*.pem
