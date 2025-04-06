@@ -1,0 +1,32 @@
+# Ignore the entire keys directory with all its contents
+/keys/
+
+# Ignore Python cache and bytecode
+__pycache__/
+*.py[cod]
+*.py
+*$py.class
+
+# Ignore Python virtual environment directories
+venv/
+env/
+crypto/
+
+# Ignore any local configuration files
+*.local
+.env
+.secrets
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Ignore sensitive files
+.pem
+.enc

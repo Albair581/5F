@@ -15,8 +15,10 @@ const translations = {
         "hero-credits": "Image created by Ugur Akdemir - Unsplash",
         "authenticate-book": "eBook Auth",
         "auth-bookid": "eBook ID:",
-        "auth-bookkey": "Access Key:",
-        "auth-client": "Hello,"
+        "auth-client": "Hello,",
+        "auth-email": "Email:",
+        "auth-cancel": "Cancel",
+        "auth-confirm": "Confirm"
     },
     zh: {
         "name": "開心電子書",
@@ -34,7 +36,9 @@ const translations = {
         "hero-credits": "大背景圖片由 Ugur Akdemir 製作、 Unsplash 提供。",
         "authenticate-book": "授權電子書",
         "auth-bookid": "電子書編號:",
-        "auth-bookkey": "存取碼:",
         "auth-client": "哈囉，",
+        "auth-email": "郵箱:",
+        "auth-cancel": "取消",
+        "auth-confirm": "確認"
     }
 };

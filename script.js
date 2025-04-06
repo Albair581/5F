@@ -30,6 +30,23 @@ function loadLanguage(lang) {
     }
 }
 
+async function auth(encrypted, client) {
+    const gotcha = await fetch(`keys/encrypted/${client}-msg.enc`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.text();
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+    // console.log(gotcha);
+    // if (encrypted === gotcha) return true;
+    // else return false;
+    return gotcha;
+}
+
 function loadPage(page, lang) {
     // Extract the base page name without parameters
 
@@ -42,14 +59,14 @@ function loadPage(page, lang) {
     if (basePage == "settings-modal") return;
     // Load content using basePage
     $.get(`templates/${basePage}.html`, function(data) {
-        $('#page-content').html(data);
-        
+        $("#page-content").empty();
         // Log URL parameters if they exist
         const params = new URLSearchParams(query);
-        
+        // TODO: http://127.0.0.1:5500/Web/5F/index.html?access=001&key=U1Esb/ZURCOropZGqbMCYEJwHWsLG7gQlQuJ3Dfk8a2o56sSpq7P8v3/Ou2St+OBhodGSnkSk3tUMBMoioBNLbI6x7YVFQ01BA36DUqmwgjRTuVDPboKJYSOdoVGdRQxmVB5fX+RAjxx++OkJCvHGR2oubaLHua5Ja3WMnJ6eCq8kp+aPgIKZM5StlrTJrN1GD6Puyri6MGlPFB7fZPrPLxA7afTBc5vLkQoOOV8HrWma+T63BUpRL3AT0RrmUF5FDuOzmg2n2+zHsF2nE4rgtTLzPT6cKmN9al0IABhzrbk42TKNtUijKqm+Pyw84RrJFX4GOtHVJAZe6xqNt4Shw==&email=109120&client=albert&numc=5f04#ebooks
+
         if (basePage == "ebooks") {
             let errored = false;
-            if (!(params.has("access") && params.has("key") && params.has("accessed") && params.has("client") && params.has("numc") && params.has("email"))) {
+            if (!(params.has("access") && params.has("key") && params.has("client") && params.has("numc") && params.has("email"))) {
                 if (params.size != 0) errored = true;
             }
             if (errored) {
@@ -57,17 +74,50 @@ function loadPage(page, lang) {
             } else {
                 let ebooksd = `
                     <section class="welcome-section">
-                        <div class="boxxx">
+                        <div class="boxxx" id="auth-box">
                             <h2 data-i18n="authenticate-book" style="margin-bottom: -5px">Authorize Book</h2>
                             <h3 style="display: inline-block; font-size: 1.65em;" data-i18n="auth-client">Hello</h3>&nbsp;&nbsp;<h3 style="display: inline-block; font-size: 1.65em;">${params.get("client").charAt(0).toUpperCase() + params.get("client").slice(1)}</h3><h3 style="display: inline-block; font-size: 1.65em;">&nbsp;${params.get("numc").toUpperCase()}!</h3><br>
                             <h3 style="display: inline-block" data-i18n="auth-bookid">Book Id</h3>&nbsp;&nbsp;<h3 style="display: inline-block">${params.get("access")}</h3><br>
-                            <h3 style="display: inline-block" data-i18n="auth-bookkey">Access Key</h3>&nbsp;&nbsp;<h3 style="display: inline-block">${params.get("key")}</h3>
+                            <h3 style="display: inline-block" data-i18n="auth-email">Email</h3>&nbsp;&nbsp;<h3 style="display: inline-block">${params.get("email")}@wgps.tp.edu.tw</h3><br>
+                            <button style="display: inline-block" id="cancel-auth" data-i18n="auth-cancel">Cancel</button><button style="display: inline-block" id="confirm-auth" data-i18n="auth-confirm" data-access="${params.get("access")}" data-key="${params.get("key")}" data-client="${params.get("client")}" data-numc="${params.get("numc")}" data-email="${params.get("email")}">Confirm</button>
                         </div>
                     </section>
                 `;
                 $('#page-content').html(ebooksd);
+                $(document).on('click', 'button#cancel-auth', function() {
+                    $("#auth-box").fadeOut();
+                    history.pushState(null, "", location.href.split("?")[0] + "#home");
+                    window.location.reload();
+                });
+                $(document).on('click', 'button#confirm-auth', async function() {
+                    // $("#auth-box").fadeOut();
+                    const auth_obj = {
+                        "key": $(this).data("key"),
+                        "client": $(this).data("client"),
+                        "numc": $(this).data("numc"),
+                        "email": $(this).data("email"),
+                        "access": $(this).data("access")
+                    };
+                    const sec = await auth(auth_obj["key"], auth_obj["client"]);
+                    if (JSON.parse(localStorage.getItem("accessed")).includes($(this).data("access"))) {
+                        alert('Already authorized. 請不要重複驗證。');
+                        $("#auth-box").fadeOut();
+                    } else if (sec == (auth_obj["access"] + "///" + auth_obj["key"])) {
+                        localStorage.setItem("client", $(this).data("client"));
+                        localStorage.setItem("numc", $(this).data("numc"));
+                        localStorage.setItem("email", $(this).data("email"));
+                        let static = JSON.stringify([$(this).data("access")]);
+                        let appended = localStorage.getItem("accessed") ? JSON.stringify(JSON.parse(localStorage.getItem("accessed"))).slice(0, -1) + `, "${$(this).data("access")}"]` : undefined;
+                        localStorage.setItem("accessed", localStorage.getItem("accessed") ? appended : static);
+                        $("#auth-box").fadeOut();
+                    } else {
+                        alert("Authorization failure. 驗證失敗。");
+                        $("#auth-box").fadeOut();
+                    }
+                });
             }
         }
+        $('#page-content').append(data);
         // Update translations for new content
         loadLanguage(lang);
         // Scroll to top
@@ -102,7 +152,7 @@ $(document).ready(function() {
     let currentLang = localStorage.getItem('language') || detectBrowserLanguage();
     loadLanguage(currentLang);
 
-    const hash = window.location.href.split("#")[1];
+    const hash = window.location.href.split("#")[1] || "home";
     loadPage(hash, currentLang);
 
     // Mobile menu toggle
