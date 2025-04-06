@@ -6,7 +6,6 @@ function detectBrowserLanguage() {
 }
 
 function loadLanguage(lang) {
-    console.log(lang);
     // Update all translatable elements
     $('[data-i18n]').each(function() {
         const key = $(this).data('i18n');
@@ -41,9 +40,6 @@ async function auth(encrypted, client) {
                     .catch(error => {
                         console.error('Error:', error);
                     });
-    // console.log(gotcha);
-    // if (encrypted === gotcha) return true;
-    // else return false;
     return gotcha;
 }
 
