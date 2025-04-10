@@ -32,6 +32,8 @@ function loadLanguage(lang) {
 // NOTE:
 // ---------------------------------------------------------------------------------//
 const opened_books = [];
+const authorized = [];
+const authorized_numc = [];
 // ---------------------------------------------------------------------------------//
 
 function loadBooks() {
@@ -46,6 +48,15 @@ function loadBooks() {
         }
     }
 }
+
+$("#books-list").on("click", ".book", function() {
+    const entered_password = atob(prompt("請輸入密碼", "")).split("|")
+    if (entered_password.length != 3) return;
+    if (!authorized.includes(entered_password[0])) return;
+    if (!authorized_numc.includes(entered_password[1])) return;
+    if (opened_books[$(this).data("access")] != entered_password[2]) return;
+    // open the book here
+});
 
 function loadPage(page, lang) {
     // Extract the base page name without parameters
