@@ -18,7 +18,8 @@ const translations = {
         "auth-client": "Hello,",
         "auth-email": "Email:",
         "auth-cancel": "Cancel",
-        "auth-confirm": "Confirm"
+        "auth-confirm": "Confirm",
+        "opened": "Accessed eBooks"
     },
     zh: {
         "name": "開心電子書",
@@ -39,6 +40,7 @@ const translations = {
         "auth-client": "哈囉，",
         "auth-email": "郵箱:",
         "auth-cancel": "取消",
-        "auth-confirm": "確認"
+        "auth-confirm": "確認",
+        "opened": "授權的電子書"
     }
 };
