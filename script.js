@@ -37,7 +37,7 @@ const opened_books = [];
 function loadBooks() {
     $("#books-list").empty();
     if (opened_books.length == 0) {
-        $("#books-list").append("呃... 沒有東西...");
+        $("#books-list").append("呃... 沒有東西... Nothing to see here!");
     } else {
         for (let i = 0; i < opened_books.length; i++) {
             $.get(`templates/Thumbnails/${opened_books[i]}.html`, function(data) {
