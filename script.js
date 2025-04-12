@@ -31,9 +31,8 @@ function loadLanguage(lang) {
 
 // NOTE:
 // ---------------------------------------------------------------------------------//
-const opened_books = [];
-const authorized = [];
-const authorized_numc = [];
+const opened_books = ["001"];
+const authorized = ["albert"];
 // ---------------------------------------------------------------------------------//
 
 function loadBooks() {
