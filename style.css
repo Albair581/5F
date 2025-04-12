@@ -31,9 +31,11 @@
 
 .book {
     padding: 8px;
-    margin: 8px;
+    margin: auto;
     background-color: var(--bg-color);
     color: var(--text-color);
+    border: 1px solid var(--text-color);
+    border-radius: 15px;
 }
 
 body {
