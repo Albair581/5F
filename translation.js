@@ -43,6 +43,6 @@ const translations = {
         "auth-cancel": "取消",
         "auth-confirm": "確認",
         "opened": "授權的電子書",
-        "staff": "工作人員名單"
+        "staff": "工作人員名單:"
     }
 };
