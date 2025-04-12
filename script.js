@@ -32,7 +32,7 @@ function loadLanguage(lang) {
 // NOTE:
 // ---------------------------------------------------------------------------------//
 const opened_books = ["001"];
-const authorized = ["albert"];
+const authorized = ["staff-albert"];
 // ---------------------------------------------------------------------------------//
 
 function loadBooks() {
