@@ -29,6 +29,13 @@
     transition: background-color 0.3s, color 0.3s;
 }
 
+.book {
+    padding: 8px;
+    margin: 8px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
 body {
     font-family: 'Noto Sans TC', sans-serif;
     color: var(--text-color);
