@@ -49,6 +49,7 @@ function loadBooks() {
 }
 
 $("#books-list").on("click", ".book", function() {
+    console.log("clicked book");
     const entered_password = atob(prompt("請輸入密碼", "")).split("|")
     if (entered_password.length != 2) return;
     if (!authorized.includes(entered_password[0])) return;
