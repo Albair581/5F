@@ -180,3 +180,5 @@ cython_debug/
 
 # sensitive stuff
 *.pem
+
+passwords.js
