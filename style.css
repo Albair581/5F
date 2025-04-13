@@ -36,6 +36,7 @@
     color: var(--text-color);
     border: 1px solid var(--text-color);
     border-radius: 15px;
+    cursor: pointer;
 }
 
 body {
@@ -211,7 +212,7 @@ button:hover {
     border-radius: 15px;
     text-align: left;
     margin: auto;
-    width: 60vw;
+    width: 75vw;
     padding: 20px;
     border: 1px solid var(--text-color);
 }

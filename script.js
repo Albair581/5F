@@ -31,8 +31,12 @@ function loadLanguage(lang) {
 
 // NOTE:
 // ---------------------------------------------------------------------------------//
-const opened_books = ["001"];
-const authorized = ["staff-albert"];
+const opened_books = [];
+const authorized = [
+    "staff-albert", "staff-ray", "staff-ethan", "staff-marcus", "staff-sophia", // staff
+    "cont-wilbur", "cont-champ", "cont-ian", "cont-ivan", // contributors
+    "access-haru", "access-raphael" // regular users
+];
 // ---------------------------------------------------------------------------------//
 
 function loadBooks() {
@@ -45,17 +49,18 @@ function loadBooks() {
                 $("#books-list").append(data);
             });
         }
+        $("#books-list").on("click", ".book", function() {
+            console.log("clicked book");
+            const entered_password = atob(prompt("請輸入密碼", "")).split("|")
+            console.log(entered_password);
+            if (entered_password.length != 2) return;
+            if (!authorized.includes(entered_password[0])) return;
+            if (!opened_books.includes($(this).text().slice(0, 3))) return;
+            if ($(this).text().slice(0, 3) != entered_password[1]) return;
+            // open book iframe logic here
+        });        
     }
 }
-
-$("#books-list").on("click", ".book", function() {
-    console.log("clicked book");
-    const entered_password = atob(prompt("請輸入密碼", "")).split("|")
-    if (entered_password.length != 2) return;
-    if (!authorized.includes(entered_password[0])) return;
-    if (opened_books[$(this).data("access")] != entered_password[1]) return;
-    // open the book here
-});
 
 function loadPage(page, lang) {
     // Extract the base page name without parameters
