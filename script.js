@@ -31,7 +31,7 @@ function loadLanguage(lang) {
 
 // NOTE:
 // ---------------------------------------------------------------------------------//
-const opened_books = [];
+const opened_books = ["000"];
 const authorized = [
     "staff-albert", "staff-ray", "staff-ethan", "staff-marcus", "staff-sophia", // staff
     "cont-wilbur", "cont-champ", "cont-ian", "cont-ivan", // contributors
@@ -50,19 +50,23 @@ function loadBooks() {
             });
         }
         $("#books-list").on("click", ".book", function() {
-            console.log("clicked book");
-            const entered_password = atob(prompt("請輸入密碼", "")).split("|")
-            console.log(entered_password);
-            if (entered_password.length != 2) return;
-            if (!authorized.includes(entered_password[0])) return;
-            if (!opened_books.includes($(this).text().slice(0, 3))) return;
-            if ($(this).text().slice(0, 3) != entered_password[1]) return;
+            if ($(this).text().slice(0, 3) != "000") {
+                const entered_password = atob(atob(prompt("請輸入密碼", ""))).split("|")
+                if (entered_password.length != 2) return;
+                if (!authorized.includes(entered_password[0])) return;
+                if (!opened_books.includes($(this).text().slice(0, 3))) return;
+                if ($(this).text().slice(0, 3) != entered_password[1]) return;
+            }
+
             // open book iframe logic here
+            const lang = localStorage.getItem('language') || detectBrowserLanguage();
+            loadPage("book", lang, $(this).text().slice(0, 3));
         });        
     }
 }
 
-function loadPage(page, lang) {
+
+function loadPage(page, lang, book) {
     // Extract the base page name without parameters
 
     const basePage = page ? (page.replace("#", '').split(/[?#]/)[0] || 'home') : 'home';
@@ -70,7 +74,9 @@ function loadPage(page, lang) {
     
     // Update active nav link (use basePage for selector)
     $('.nav-link').removeClass('active');
-    $(`.nav-link[href="#${basePage}"]`).addClass('active');
+    if (basePage != "book") {
+        $(`.nav-link[href="#${basePage}"]`).addClass('active');
+    }
     if (basePage == "settings-modal") return;
     // Load content using basePage
     $.get(`templates/${basePage}.html`, function(data) {
@@ -78,6 +84,12 @@ function loadPage(page, lang) {
         $('#page-content').append(data);
         if (basePage == 'ebooks') {
             loadBooks();
+        }
+        if (basePage == 'book') {
+            $.get(`templates/Books/${book}.html`, function(bookd) {
+                $("#bookview-board").empty();
+                $("#bookview-board").append(bookd);
+            });
         }
         // Update translations for new content
         loadLanguage(lang);
