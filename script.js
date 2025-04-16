@@ -47,6 +47,7 @@ function loadBooks() {
         for (let i = 0; i < opened_books.length; i++) {
             $.get(`templates/Thumbnails/${opened_books[i]}.html`, function(data) {
                 $("#books-list").append(data);
+                loadLanguage(localStorage.getItem('language') || detectBrowserLanguage());
             });
         }
         $("#books-list").on("click", ".book", function() {
