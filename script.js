@@ -68,8 +68,8 @@ function loadBooks() {
 
 function loadPage(page, lang, book) {
     // Extract the base page name without parameters
-
-    const basePage = page ? (page.replace("#", '').split(/[?#]/)[0] || 'home') : 'home';
+    let basePage = page ? (page.replace("#", '').split(/[?#]/)[0] || 'home') : 'home';
+    if (page == "book" && !book) basePage = 'home';
     const query = window.location.search.replace("?", "");
     
     // Update active nav link (use basePage for selector)
