@@ -95,11 +95,11 @@ function loadPage(page, lang, book) {
                 $("#bookview-board").html(bookd + '<br><br>' + $("#bookview-board").html());
 				$("#feedback-form").attr("data-book", book);
             });
-            $("#feedback-form").submit(function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                console.log("form submit");
-            });
+            $("#feedback-form").submit(function(event) {
+ 				event.preventDefault(); // Stops the default form submission
+  				// Your custom logic here
+  				console.log("Form submitted with jQuery, no reload!");
+			});
         }
         // Update translations for new content
         loadLanguage(lang);
