@@ -70,9 +70,8 @@ function loadBooks() {
     }
 }
 
-$("#g-submit").click(function(event) {
-	event.preventDefault();
-    event.stopImmediatePropagation();
+$("#g-submit").on("click", function(event) { 
+    event.preventDefault();
 	// Your custom logic here
 	console.log("Form submitted");
 });
