@@ -231,7 +231,7 @@ input[type=text], input[type=email], textarea {
 }
 
 .svalidate:invalid {
-    background-color: aliceblue;
+    background-color: lightblue;
 }
 
 .boxxxxxx {
