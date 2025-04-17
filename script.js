@@ -70,10 +70,27 @@ function loadBooks() {
     }
 }
 
-$("#g-submit").on("click", function(event) { 
+function submitFeedback() {
+    let params = {
+        company: "Happy eBook Team",
+        email: $("#feedback-email").val(), 
+        name: $("#feedback-name").val(),
+        message: $("#feedback-message").val(),
+        item: "Book" + $("#feedback-form").data("book"),
+        subject: "Happy eBook Feedback",
+        time: new Date().toLocaleString()
+    }
+
+    emailjs.send("service_0vk5fnt", "template_lu711p6", params)
+        .then( 
+            alert("感謝您寶貴的意見! Thanks for your precious feedback!"),
+            $("#feedback-form").trigger("reset")
+        )
+}
+
+$(document).on("submit", "#feedback-form", function(event) {
     event.preventDefault();
-	// Your custom logic here
-	console.log("Form submitted");
+    submitFeedback();
 });
 
 function loadPage(page, lang, book) {

@@ -22,7 +22,7 @@ const translations = {
         "auth-confirm": "Confirm",
         "opened": "Accessed eBooks",
         "staff": "Staff List:",
-        "g-email": "School Email:",
+        "g-email": "School Email (xxxxxx@wgps.tp.edu.tw):",
         "g-name": "Full Name:",
         "g-feedback": "Feedback",
         "g-sub": "Submit"
@@ -50,7 +50,7 @@ const translations = {
         "auth-confirm": "確認",
         "opened": "授權的電子書",
         "staff": "工作人員名單:",
-        "g-email": "學校信箱:",
+        "g-email": "學校信箱 (xxxxxx@wgps.tp.edu.tw):",
         "g-name": "全名:",
         "g-feedback": "回饋:",
         "g-sub": "提交回饋"

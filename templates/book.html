@@ -1,19 +1,23 @@
 <section class="welcome-section" id="bookview-board">
-    <form class='boxxx' id="feedback-form">
+    <br>
+    <hr>
+    <br>
+    <h2>留下您寶貴的意見吧!</h2>
+    <form class='boxxx' id="feedback-form" style="width: 80vw;">
         <label for='email' style="font-size: 0.85rem" data-i18n="g-email">School Email:</label>
         <br>
-        <input type='email' id='email' name="email" pattern="[0-9]{6}@wgps\.tp\.edu\.tw" class="svalidate" required>
+        <input type='email' id='feedback-email' name="email" pattern="[0-9]{6}@wgps\.tp\.edu\.tw" class="svalidate" required>
         <br>
         <label for='name' style="font-size: 0.85rem" data-i18n="g-name">Full Name:</label>
         <br>
-        <input type='text' id='name' name="name" class="svalidate" required>
+        <input type='text' id='feedback-name' name="name" class="svalidate" required>
         <br>
         <label for='message' style="font-size: 0.85rem" data-i18n="g-feedback">Feedback:</label>
         <br>
-        <textarea id='message' name="message" rows="5" cols"60" class="svalidate" required></textarea>
+        <textarea id='feedback-message' name="message" rows="5" cols"60" class="svalidate" required></textarea>
         <br>
         <div class="g-recaptcha" data-sitekey="6Lc2ahsrAAAAAE__5wS59ovQrm-umjL42kQVOAWh"></div>
         <br>
-        <div style="width: 100%; text-align: center;"><button data-i18n="g-sub" id="g-submit">Submit</button></div>
+        <div style="width: 100%; text-align: center;"><button data-i18n="g-sub" id="g-submit" >Submit</button></div>
     </form>
 </section>
