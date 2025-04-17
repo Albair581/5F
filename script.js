@@ -116,6 +116,10 @@ function loadPage(page, lang, book) {
             $.get(`templates/Books/${book}.html`, function(bookd) {
                 $("#bookview-board").html(bookd + '<br><br>' + $("#bookview-board").html());
 				$("#feedback-form").attr("data-book", book);
+                $.get(`templates/Feedbacks/${book}.html`, function(feedbacks) {
+                    $("#other-feedbacks").empty();
+                    $("#other-feedbacks").append(feedbacks);
+                });
             });
         }
         // Update translations for new content
