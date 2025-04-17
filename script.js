@@ -71,7 +71,8 @@ function loadBooks() {
 }
 
 $("#g-submit").click(function(event) {
-	event.preventDefault(); // Stops the default form submission
+	event.preventDefault();
+    event.stopImmediatePropagation();
 	// Your custom logic here
 	console.log("Form submitted");
 });
