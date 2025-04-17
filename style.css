@@ -229,6 +229,10 @@ input[type=text], input[type=email], textarea {
     color: var(--text-color);
 }
 
+.svalidate:invalid {
+    background-color: lightpink;
+}
+
 .boxxxxxx {
     border-radius: 15px;
     text-align: center;
