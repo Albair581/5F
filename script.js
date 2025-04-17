@@ -70,10 +70,10 @@ function loadBooks() {
     }
 }
 
-$("#feedback-form").submit(function(event) {
+$("#g-submit").click(function(event) {
 	event.preventDefault(); // Stops the default form submission
 	// Your custom logic here
-	console.log("Form submitted with jQuery, no reload!");
+	console.log("Form submitted");
 });
 
 function loadPage(page, lang, book) {
