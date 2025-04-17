@@ -1,16 +1,17 @@
 <section class="welcome-section" id="bookview-board">
-    <div class='boxxx'>
+    <form class='boxxx'>
         <label for='email' style="font-size: 0.85rem">Your school email:</label>
         <br>
-        <input type='email' id='email' name="email">
+        <input type='email' id='email' name="email" pattern="[0-9]{6}@wgps\.tp\.edu\.tw" required>
         <br>
         <label for='name' style="font-size: 0.85rem">Your name:</label>
         <br>
-        <input type='text' id='name' name="name">
+        <input type='text' id='name' name="name" required>
         <br>
         <label for='message' style="font-size: 0.85rem">Your feedback:</label>
         <br>
-        <textarea id='message' name="message" rows="5" cols"60">What's your feedback for us?</textarea>
+        <textarea id='message' name="message" rows="5" cols"60" placeholder="Your Feedback" required></textarea>
         <br>
-    </div>
+        <button>Submit/button>
+    </form>
 </section>
