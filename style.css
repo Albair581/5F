@@ -221,7 +221,7 @@ input[type=text], input[type=email], textarea {
     border-radius: 10px;
     text-align: left;
     margin: auto;
-    width: auto;
+    width: 90%;
     padding: 5px;
     border: 1px solid var(--text-color);
     font-size: 1.1rem;
