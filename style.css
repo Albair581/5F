@@ -221,9 +221,12 @@ input[type=text] {
     border-radius: 15px;
     text-align: left;
     margin: auto;
-    width: 85%;
+    width: auto;
     padding: 5px;
     border: 1px solid var(--text-color);
+    font-size: 1.1rem;
+    background-color: var(--bg-color);
+    color: var(--text-color);
 }
 
 .boxxxxxx {
