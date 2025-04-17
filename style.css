@@ -217,7 +217,7 @@ button:hover {
     border: 1px solid var(--text-color);
 }
 
-input[type=text] {
+input[type=text], input[type=email], textarea {
     border-radius: 10px;
     text-align: left;
     margin: auto;
