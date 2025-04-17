@@ -53,7 +53,7 @@ button {
     background-color: var(--primary-color);
     color: var(--text-color);
     font-family: inherit;
-    font-size: 1.1rem;
+    font-size: 0.85rem;
     margin: aito;
     transition: background-color .2s;
 }
