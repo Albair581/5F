@@ -218,7 +218,7 @@ button:hover {
 }
 
 input[type=text] {
-    border-radius: 15px;
+    border-radius: 10px;
     text-align: left;
     margin: auto;
     width: auto;
