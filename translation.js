@@ -29,6 +29,9 @@ const translations = {
         "g-sub": "Submit",
         "leave-feedback": "Leave your precious feedback!",
         "other-feedback": "Other users' feedbacks",
+        "staff": "Staff",
+        "contri": "Contributor",
+        "discord-server": "Our Discord Server"
     },
     zh: {
         "name": "開心電子書",
@@ -60,5 +63,8 @@ const translations = {
         "g-sub": "提交回饋",
         "leave-feedback": "留下您寶貴的意見吧!",
         "other-feedback": "其他使用者留下的意見",
+        "staff": "工作人員",
+        "contri": "資料提供者",
+        "discord-server": "我們的Discord伺服器"
     }
 };

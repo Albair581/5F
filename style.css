@@ -291,7 +291,6 @@ input[type=text], input[type=email], textarea {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 0;
-    border-bottom: 1px solid var(--border-color);
 }
 
 /* Toggle Switch */
