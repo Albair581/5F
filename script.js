@@ -35,7 +35,11 @@ const opened_books = ["000"];
 const authorized = [
     "staff-albert", "staff-ray", "staff-ethan", "staff-marcus", "staff-sophia", // staff
     "cont-wilbur", "cont-champ", "cont-ian", "cont-ivan", // contributors
-    "access-haru", "access-raphael" // regular users
+	"cont-haru", "cont-lucas", "cont-jeffrey", "cont-jack",
+    "cont-davina", "cont-chelsea", "cont-kimi", "cont-ryan",
+    
+    "access-raphael", "access-aaron", "access-leaf", // regular users
+	"access-adrian", "access-austin", "access-declan", "access-ben",
 ];
 // ---------------------------------------------------------------------------------//
 
