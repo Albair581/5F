@@ -53,6 +53,6 @@ const translations = {
         "g-email": "學校信箱:",
         "g-name": "全名:",
         "g-feedback": "回饋:",
-        "g-sub": "提交"
+        "g-sub": "提交回饋"
     }
 };
