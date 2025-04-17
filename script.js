@@ -95,6 +95,9 @@ function loadPage(page, lang, book) {
                 $("#bookview-board").html(bookd + '<br><br>' + $("#bookview-board").html());
 				$("#feedback-form").attr("data-book", book);
             });
+            $("#feedback-form").submit(function(e) {
+                e.preventDefault();
+            });
         }
         // Update translations for new content
         loadLanguage(lang);
