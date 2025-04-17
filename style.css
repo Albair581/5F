@@ -278,6 +278,10 @@ input[type=text], input[type=email], textarea {
     position: relative;
 }
 
+a {
+    color: var(--primary-color)
+}
+
 .close-modal {
     position: absolute;
     top: 1rem;
