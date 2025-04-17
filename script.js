@@ -93,6 +93,7 @@ function loadPage(page, lang, book) {
         if (basePage == 'book') {
             $.get(`templates/Books/${book}.html`, function(bookd) {
                 $("#bookview-board").html(bookd + '<br><br>' + $("#bookview-board").html());
+				$("#feedback-form").attr("data-book", book);
             });
         }
         // Update translations for new content
