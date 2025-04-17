@@ -24,7 +24,8 @@ const translations = {
         "staff": "Staff List:",
         "g-email": "School Email:",
         "g-name": "Full Name:",
-        "g-feedback": "Feedback"
+        "g-feedback": "Feedback",
+        "g-sub": "Submit"
     },
     zh: {
         "name": "開心電子書",
@@ -51,6 +52,7 @@ const translations = {
         "staff": "工作人員名單:",
         "g-email": "學校信箱:",
         "g-name": "全名:",
-        "g-feedback": "回饋:"
+        "g-feedback": "回饋:",
+        "g-sub": "提交"
     }
 };
