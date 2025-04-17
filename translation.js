@@ -21,7 +21,10 @@ const translations = {
         "auth-cancel": "Cancel",
         "auth-confirm": "Confirm",
         "opened": "Accessed eBooks",
-        "staff": "Staff List:"
+        "staff": "Staff List:",
+        "g-email": "School Email:",
+        "g-name": "Full Name:",
+        "g-feedback": "Feedback"
     },
     zh: {
         "name": "開心電子書",
@@ -45,6 +48,9 @@ const translations = {
         "auth-cancel": "取消",
         "auth-confirm": "確認",
         "opened": "授權的電子書",
-        "staff": "工作人員名單:"
+        "staff": "工作人員名單:",
+        "g-email": "學校信箱:",
+        "g-name": "全名:",
+        "g-feedback": "回饋:"
     }
 };
