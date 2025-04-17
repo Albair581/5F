@@ -97,6 +97,7 @@ function loadPage(page, lang, book) {
             });
             $("#feedback-form").submit(function(e) {
                 e.preventDefault();
+                console.log("form submit");
             });
         }
         // Update translations for new content
