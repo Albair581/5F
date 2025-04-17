@@ -97,6 +97,7 @@ function loadPage(page, lang, book) {
             });
             $("#feedback-form").submit(function(e) {
                 e.preventDefault();
+                e.stopImmediatePropagation();
                 console.log("form submit");
             });
         }
