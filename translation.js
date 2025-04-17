@@ -13,6 +13,7 @@ const translations = {
         "change-language": "Language",
         "thanks": "Special thanks to individuals or origanizations listed below:",
         "fav-credits": "Favicon created by Illosalz - Flaticon",
+        "ceri-credits": "Certified icon created by Wahyu Adam - Flaticon",
         "hero-credits": "Image created by Ugur Akdemir - Unsplash",
         "authenticate-book": "eBook Auth",
         "auth-bookid": "eBook ID:",
@@ -25,7 +26,9 @@ const translations = {
         "g-email": "School Email (xxxxxx@wgps.tp.edu.tw):",
         "g-name": "Full Name:",
         "g-feedback": "Feedback",
-        "g-sub": "Submit"
+        "g-sub": "Submit",
+        "leave-feedback": "Leave your precious feedback!",
+        "other-feedback": "Other users' feedbacks",
     },
     zh: {
         "name": "開心電子書",
@@ -41,6 +44,7 @@ const translations = {
         "change-language": "語言",
         "thanks": "感謝以下機構或個人:",
         "fav-credits": "網站圖標由 Illosalz 製作、 Flaticon 提供。",
+        "ceri-credits": "認證圖案由 Wahyu Adam 製作、Flaticon 提供。",
         "hero-credits": "大背景圖片由 Ugur Akdemir 製作、 Unsplash 提供。",
         "authenticate-book": "授權電子書",
         "auth-bookid": "電子書編號:",
@@ -53,6 +57,8 @@ const translations = {
         "g-email": "學校信箱 (xxxxxx@wgps.tp.edu.tw):",
         "g-name": "全名:",
         "g-feedback": "回饋:",
-        "g-sub": "提交回饋"
+        "g-sub": "提交回饋",
+        "leave-feedback": "留下您寶貴的意見吧!",
+        "other-feedback": "其他使用者留下的意見",
     }
 };

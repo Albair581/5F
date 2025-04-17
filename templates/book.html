@@ -2,7 +2,7 @@
     <br>
     <hr>
     <br>
-    <h2>留下您寶貴的意見吧!</h2>
+    <h2 data-i18n="leave-feedback">留下您寶貴的意見吧!</h2>
     <form class='boxxx' id="feedback-form" style="width: 80vw;">
         <label for='email' style="font-size: 0.85rem" data-i18n="g-email">School Email:</label>
         <br>
@@ -20,4 +20,52 @@
         <br>
         <div style="width: 100%; text-align: center;"><button data-i18n="g-sub" id="g-submit" >Submit</button></div>
     </form>
+    <br>
+    <hr>
+    <br>
+    <h2 data-i18n="other-feedback">其他使用者留下的意見</h2>
+    <div id="other-feedbacks">
+        <div style="font-family: inherit; font-size: 12px" class="boxxx-card">
+            <div
+            style="
+                margin: 20px;
+                padding: 15px 0;
+                border-width: 1px 0;
+                border-style: double;
+                border-color: var(--text-color);
+            "
+            >
+            <table role="presentation">
+                <tr>
+                    <td style="vertical-align: top">
+                        <div
+                            style="
+                            padding: 6px 10px;
+                            margin: 0 10px;
+                            background-color: lightyellow;
+                            border-radius: 5px;
+                            font-size: 26px;
+                            "
+                            role="img"
+                        >
+                            &#x1F603;
+                        </div>
+                    </td>
+                    <td style="vertical-align: top">
+                        <div style="color: var(--primary-color); font-size: 16px" id="card-ah-04172025144812">
+                            <strong>Albert Huang</strong>
+                            &nbsp;&nbsp;
+                            <img src='..\static\staf.png' alt="(Certified Staff)" title="Certified Staff" width="16" height="16">
+                        </div>
+                        <div style="color: var(--text-color); font-size: 15px">4/17/2025, 2:48:12 PM</div>
+                        <br>
+                        <p style="font-size: 18px; font-style: italic;">
+                            Here's some developer notes: The &lt;iframe&gt; is responsive, and the whole website is also responsive, since it is tested on a Windows laptop, a Windows desktop, a Mac laptop, an iPad, an iPhone, and the dimensions works well on all of them.
+                        </p>
+                    </td>
+                </tr>
+            </table>
+            </div>
+        </div>
+    </div>
 </section>

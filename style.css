@@ -244,6 +244,19 @@ input[type=text], input[type=email], textarea {
     border: 1px solid var(--text-color);
 }
 
+.boxxx-card {
+    border-radius: 15px;
+    text-align: left;
+    margin: auto;
+    width: auto;
+    padding: 10px;
+    border: 1px solid var(--text-color);
+}
+
+.boxxx-card h2 {
+    color: var(--primary-color);
+}
+
 /* Settings Modal */
 .modal {
     display: none;
