@@ -39,6 +39,16 @@
     cursor: pointer;
 }
 
+#books-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: auto;
+    height: auto;
+    align-items: center;
+    flex-direction: row-reverse;
+}
+
 body {
     font-family: 'Noto Sans TC', sans-serif;
     color: var(--text-color);
@@ -389,5 +399,9 @@ input:checked + .slider:before {
     .modal-content {
         margin: 20% auto;
         width: 90%;
+    }
+    
+    #books-list {
+        flex-direction: column-reverse;
     }
 }
