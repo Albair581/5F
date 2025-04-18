@@ -42,11 +42,11 @@
 #books-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
     padding: auto;
     height: auto;
     align-items: center;
-    flex-direction: row-reverse;
+    flex-direction: row;
 }
 
 body {
@@ -402,6 +402,6 @@ input:checked + .slider:before {
     }
     
     #books-list {
-        flex-direction: column-reverse;
+        flex-direction: column;
     }
 }
