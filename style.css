@@ -31,19 +31,22 @@
 
 .book {
     padding: 8px;
-    margin: auto;
+    margin: 10px;  /* Changed from auto to provide spacing between books */
     background-color: var(--bg-color);
     color: var(--text-color);
     border: 1px solid var(--text-color);
     border-radius: 15px;
     cursor: pointer;
+    flex: 1 1 200px;  /* This is key: flex-grow, flex-shrink, flex-basis */
+    min-width: 150px; /* Ensures books don't get too small */
+    max-width: 300px; /* Prevents books from getting too large */
 }
 
 #books-list {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    flex-direction: row;
+    justify-content: flex-start; /* Aligns items to the start */
+    gap: 15px; /* Modern way to add spacing between flex items */
 }
 
 body {
