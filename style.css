@@ -39,7 +39,7 @@
 
 .book {
   flex: 1 1 30%; /* Each book takes roughly half the container width */
-  min-width: 300px; /* Minimum width to prevent tiny books */
+  min-width: 250px; /* Minimum width to prevent tiny books */
   margin: 0; /* Remove the auto margin that's centering them */
   text-align: center; /* Keep text centered within each book */
   /* Keep your other book styles */
