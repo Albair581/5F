@@ -29,24 +29,20 @@
     transition: background-color 0.3s, color 0.3s;
 }
 
-.book {
-    padding: 8px;
-    margin: 10px;  /* Changed from auto to provide spacing between books */
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    border: 1px solid var(--text-color);
-    border-radius: 15px;
-    cursor: pointer;
-    flex: 1 1 200px;  /* This is key: flex-grow, flex-shrink, flex-basis */
-    min-width: 150px; /* Ensures books don't get too small */
-    max-width: 300px; /* Prevents books from getting too large */
+#books-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* This spreads items across the container */
+  width: 100%; /* Ensures the container takes full width */
+  gap: 15px; /* Adds consistent spacing */
 }
 
-#books-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start; /* Aligns items to the start */
-    gap: 15px; /* Modern way to add spacing between flex items */
+.book {
+  flex: 1 1 30%; /* Each book takes roughly half the container width */
+  min-width: 300px; /* Minimum width to prevent tiny books */
+  margin: 0; /* Remove the auto margin that's centering them */
+  text-align: center; /* Keep text centered within each book */
+  /* Keep your other book styles */
 }
 
 body {
