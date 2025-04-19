@@ -39,6 +39,7 @@ const translations = {
         "c-eng": "Kimi Zhuang, Albert Huang, Jeffrey Wang - English Education Providers",
         "c-math": "Lucas Yang, Ian Huang, Champ Liu - Math Education Providers",
         "c-ss": "Haru Wang, Chelsea Zeng, Ryan Lee - Social Studies Education Providers",
+        "antispam": "Please do not spam feedbacks or post inappropriate content. Inappropriate content may vary, and we will leave that to the system bot to decide.If we detect suspicious activity, you will get a warning."
     },
     zh: {
         "name": "開心電子書",
@@ -80,6 +81,7 @@ const translations = {
         "c-eng": "莊子樂、黃聿辰、王品勛 - 英語知識提供者",
         "c-math": "楊秉宸、黃星堯、劉宇宸 - 數學知識提供者",
         "c-ss": "王成宇、曾若晴、李天睿 - 社會知識提供者",
+        "antispam": "請不要亂留言。亂留言包括但不限於一直留言、不雅言語、不恰當內容。如果系統偵測到異常活動，將發出警告。"
     },
     jp: {
         "name": "Happy eBook",
@@ -121,5 +123,6 @@ const translations = {
         "c-eng": "キミ、アルバート、ジェフリー - 英語知識提供者",
         "c-math": "ルーカス、イアン、チャンプ - 数学知識提供者",
         "c-ss": "ハル、チェルシー、ライアン - 社会知識提供者",
+        "antispam": "スパムフィードバックや不適切な内容の投稿はご遠慮ください。不適切な内容は様々ですが、その判断はシステムボットに委ねます。不審な行為を検出した場合は、警告が表示されます。"
     }
 };
