@@ -34,6 +34,7 @@
     flex-wrap: wrap;
     justify-content: center; /* This spreads items across the container */
     gap: 5px; /* Adds consistent spacing */
+    flex-direction: row;
 }
 
 .book {
