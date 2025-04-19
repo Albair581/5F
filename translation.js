@@ -40,11 +40,7 @@ const translations = {
         "c-math": "Lucas Yang, Ian Huang, Champ Liu - Math Education Providers",
         "c-ss": "Haru Wang, Chelsea Zeng, Ryan Lee - Social Studies Education Providers",
         "company-intro": "Company Intro",
-        "company-introd": `
-        Happy eBook was found by Ray, because he wanted a place for people to learn and enjoy at the same time. 
-        He teamed up with many people to gather information, just for you. 
-        Later on, he worked with illustrators and developers and researchers, and he also worked hard himself, and established this team. Happy eBook is not only loved bu students, parents also like what we are doing.
-        We hope you like our product!`
+        "company-introd": "Happy eBook was found by Ray, because he wanted a place for people to learn and enjoy at the same time. He teamed up with many people to gather information, just for you. Later on, he worked with illustrators and developers and researchers, and he also worked hard himself, and established this team. Happy eBook is not only loved bu students, parents also like what we are doing. We hope you like our product!"
     },
     zh: {
         "name": "開心電子書",
@@ -87,11 +83,7 @@ const translations = {
         "c-math": "楊秉宸、黃星堯、劉宇宸 - 數學知識提供者",
         "c-ss": "王成宇、曾若晴、李天睿 - 社會知識提供者",
         "company-intro": "網站背後的故事",
-        "company-introd": `
-        開心電子書是由陳柏睿創辦，他想要讓大家都要有一個既可以娛樂又可以學習的地方，就創辦了開心電子書。
-        他與許多人合作，取得了各種資訊。
-        他也邀請了繪畫家、開發者、研究專家，就是為了帶給您最好的體驗。開心電子書，不僅受學生的喜愛，也受到了家長的認同，希望您會喜歡。
-        一起來進入小學生適合的世界吧！`
+        "company-introd": "開心電子書是由陳柏睿創辦，他想要讓大家都要有一個既可以娛樂又可以學習的地方，就創辦了開心電子書。他與許多人合作，取得了各種資訊。他也邀請了繪畫家、開發者、研究專家，就是為了帶給您最好的體驗。開心電子書，不僅受學生的喜愛，也受到了家長的認同，希望您會喜歡。一起來進入小學生適合的世界吧！"
     },
     jp: {
         "name": "Happy eBook",
@@ -134,11 +126,6 @@ const translations = {
         "c-math": "ルーカス、イアン、チャンプ - 数学知識提供者",
         "c-ss": "ハル、チェルシー、ライアン - 社会知識提供者",
         "company-intro"： "会社紹介",
- 		"company-introd"： `
- 		Happy eBookは、レイによって創設された。人々が学び、同時に楽しめる場所を求めていたからだ。
-        彼は多くの人とチームを組み、あなたのためだけに情報を集めました。
-        その後、彼はイラストレーターや開発者、研究者たちと協力し、また彼自身も努力し、このチームを立ち上げました。
-        Happy eBookは生徒だけでなく、保護者の方々にも愛されています。
-        私たちの製品を気に入っていただければ幸いです。`
+ 		"company-introd"： "Happy eBookは、レイによって創設された。人々が学び、同時に楽しめる場所を求めていたからだ。彼は多くの人とチームを組み、あなたのためだけに情報を集めました。その後、彼はイラストレーターや開発者、研究者たちと協力し、また彼自身も努力し、このチームを立ち上げました。Happy eBookは生徒だけでなく、保護者の方々にも愛されています。私たちの製品を気に入っていただければ幸いです。"
     }
 };
