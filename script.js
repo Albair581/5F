@@ -2,9 +2,14 @@
 function detectBrowserLanguage() {
     const userLang = navigator.language || navigator.userLanguage;
     if (userLang.startsWith('zh')) return 'zh';
+    else if (userLang.startsWith('jp')) return 'jp';
     return 'en'; // default
 }
 
+/**
+ * Loads the language preference and updates all translatable elements on the page.
+ * @param {string} lang - The language code to load (e.g. 'en', 'zh', 'jp').
+ */
 function loadLanguage(lang) {
     // Update all translatable elements
     $('[data-i18n]').each(function() {
@@ -43,6 +48,13 @@ const authorized = [
 ];
 // ---------------------------------------------------------------------------------//
 
+/**
+ * Loads all available books and displays them in the #books-list element.
+ * Each book is clickable and will open the corresponding book page when clicked.
+ * If the book is not publicly accessible, a prompt will appear asking for a
+ * username and password. If the entered credentials are valid, the book page
+ * will be opened. If not, nothing will happen.
+ */
 function loadBooks() {
     $("#books-list").empty();
     if (opened_books.length == 0) {
@@ -70,6 +82,13 @@ function loadBooks() {
     }
 }
 
+/**
+ * Submits a feedback form using emailjs library.
+ * Collects the form fields and sends them to the emailjs service, which will then send an email to the recipient.
+ * After submission, the form is reset.
+ * @example
+ * submitFeedback();
+ */
 function submitFeedback() {
     let params = {
         company: "Happy eBook Team",
@@ -92,6 +111,21 @@ $(document).on("submit", "#feedback-form", function(event) {
     event.preventDefault();
     submitFeedback();
 });
+
+/**
+ * Loads a specified page and updates the navigation state.
+ * 
+ * This function determines the base page name from the given parameters,
+ * updates the active navigation link, and dynamically loads the
+ * corresponding HTML content into the page. It also handles loading
+ * specific book and feedback content when the "book" page is requested.
+ * The function updates the browser's URL without reloading the page and
+ * ensures that the translations and content are properly loaded.
+ * 
+ * @param {string} page - The page identifier or URL hash fragment.
+ * @param {string} lang - The language code for translating content.
+ * @param {string} book - The book identifier for loading specific book content.
+ */
 
 function loadPage(page, lang, book) {
     // Extract the base page name without parameters
