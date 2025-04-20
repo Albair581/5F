@@ -11,8 +11,11 @@
 
         <link rel="manifest" href="manifest.json">
 
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
         <!-- Web app settings -->
-        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-title" content="Happy eBook">
         <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
@@ -109,7 +112,8 @@
 
             function isAndroidChrome() {
                 const ua = navigator.userAgent.toLowerCase();
-                return ua.includes("android") && ua.includes("chrome") && !ua.includes("edge");
+                console.log(ua);
+                return ua.includes("chrome") || ua.includes("edge");
             }
 
             window.addEventListener('beforeinstallprompt', (e) => {
