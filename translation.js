@@ -54,7 +54,7 @@ const translations = {
         "credits": "致謝",
         "settings": "設定",
         "description": "適合小學生的電子書，讓您隨時隨地享受閱讀的樂趣。",
-        "dark-mode": "深色模式",
+        "dark-mode": "深色頁面",
         "change-language": "語言",
         "thanks": "感謝以下機構或個人:",
         "fav-credits": "網站圖標由 Illosalz 製作、 Flaticon 提供。",
