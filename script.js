@@ -1,3 +1,13 @@
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js');
+}
+  
+
+
+
+
+
+
 // Add this at the beginning of your script.js
 function detectBrowserLanguage() {
     const userLang = navigator.language || navigator.userLanguage;
