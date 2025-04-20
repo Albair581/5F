@@ -1,7 +1,7 @@
 {
     "name": "Happy eBook",
     "short_name": "eBook",
-    "start_url": "/index.html",
+    "start_url": "https://albair581.github.io/5F/index.html#home",
     "display": "standalone",
     "background_color": "#f8f9fa",
     "theme_color": "#4a6fa5",
