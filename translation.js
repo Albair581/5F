@@ -45,7 +45,7 @@ const translations = {
     zh: {
         "name": "開心電子書",
         "welcome": "歡迎來到開心電子書",
-        "home": "主頁",
+        "home": "主頁面",
         "ebooks": "電子書",
         "ebook": "電子書",
         "trailer": "預告篇",
