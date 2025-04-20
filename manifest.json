@@ -1,7 +1,7 @@
 {
     "name": "Happy eBook",
     "short_name": "eBook",
-    "start_url": "/5F/indxe.html#home",
+    "start_url": "/5F/index.html#home",
     "display": "standalone",
     "background_color": "#f8f9fa",
     "theme_color": "#4a6fa5",
