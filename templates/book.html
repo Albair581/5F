@@ -16,9 +16,28 @@
         <br>
         <textarea id='feedback-message' name="message" rows="5" cols="60" class="svalidate" required></textarea>
         <br>
-        <div class="g-recaptcha" data-sitekey="6LezcBsrAAAAADwNnNqLP4pKkTxTV6GCAxCySCKK"></div>
         <br>
-        <div style="width: 100%; text-align: center;"><button data-i18n="g-sub" id="g-submit" >Submit</button></div>
+        <div id="captcha-feed" class="g-recaptcha" data-callback="captchaCall" data-expired-callback="captchaEx"></div>
+        <script>
+            var onloadCallback = function() {
+                grecaptcha.render("captcha-feed", {
+                    'sitekey' : '6Lcukx4rAAAAAMLKx4G8auK6xCC_A6hn5e3kgKrZ',
+                    'theme' : localStorage.getItem('darkMode') === 'true' ? 'dark' : 'light'
+                });
+            };
+
+            var captchaCall = function() {
+                $("#g-submit").prop("disabled", false);
+                $("#g-submit").css("cursor", "pointer");
+            }
+
+            var captchaEx = function() {
+                $("#g-submit").prop("disabled", true);
+                $("#g-submit").css("cursor", "not-allowed");
+            }
+        </script>
+        <br>
+        <button data-i18n="g-sub" id="g-submit" style="cursor: not-allowed;" disabled>Submit</button>
         <br>
         <p data-i18n="antispam">Please do not spam feedbacks or post inappropriate content. Inappropriate content may vary, and we will leave that to the system bot to decide.If we detect suspicious activity, you will get a warning.</p>
     </form>
@@ -29,4 +48,5 @@
     <div id="other-feedbacks">
         
     </div>
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
 </section>
