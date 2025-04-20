@@ -95,6 +95,8 @@
                 <hr>
                 <br>
                 <a href="https://discord.gg/krmMrm6pHU" target="_blank" data-i18n="discord-server">Our Discord Server</a>
+                <br>
+                <p id="noinstall">Hi! Did you came here to install the app? Your device isn't Android or your browser isn't Chrome, so you can't use our auto-install feature.</p><br>
                 <button id="installBtn" style="display:none;">📲 Install 5F eBooks</button>
             </div>
         </div>
@@ -116,22 +118,24 @@
                 deferredPrompt = e;
 
                 if (isAndroidChrome()) {
-                const installBtn = document.getElementById('installBtn');
-                installBtn.style.display = 'inline-block';
+                    const noinstall = document.getElementById('noinstall');
+                    noinstall.style.display = 'none';
+                    const installBtn = document.getElementById('installBtn');
+                    installBtn.style.display = 'inline-block';
 
-                installBtn.addEventListener('click', () => {
-                    installBtn.style.display = 'none'; // Hide after click
-                    deferredPrompt.prompt();
+                    installBtn.addEventListener('click', () => {
+                        installBtn.style.display = 'none'; // Hide after click
+                        deferredPrompt.prompt();
 
-                    deferredPrompt.userChoice.then((choiceResult) => {
-                        if (choiceResult.outcome === 'accepted') {
-                            console.log('✅ User accepted the install prompt');
-                        } else {
-                            console.log('❌ User dismissed the install prompt');
-                        }
-                        deferredPrompt = null;
+                        deferredPrompt.userChoice.then((choiceResult) => {
+                            if (choiceResult.outcome === 'accepted') {
+                                console.log('✅ User accepted the install prompt');
+                            } else {
+                                console.log('❌ User dismissed the install prompt');
+                            }
+                            deferredPrompt = null;
+                        });
                     });
-                });
                 }
             });
         </script>
