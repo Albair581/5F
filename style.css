@@ -286,7 +286,9 @@ input[type=text], input[type=email], textarea {
     padding: 2rem;
     border-radius: 8px;
     max-width: 500px;
+    max-height: 500px;
     position: relative;
+    overflow-y: auto;
 }
 
 a {
