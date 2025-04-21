@@ -147,6 +147,13 @@ function loadPage(page, lang, book) {
     // Load content using basePage
     $.get(`templates/${basePage}.html`, function(data) {
         $("#page-content").empty();
+        const newsn = `
+        <div class="news">
+            <span style="font-size: 1.25rem;">&#x1F4E2;</span> 
+            <h2 style="display: inline-block;" data-i18n="NEWEST"></h2>
+        </div>
+        `;
+        $('#page-content').append(newsn);
         $('#page-content').append(data);
         if (basePage == 'ebooks') {
             loadBooks();
