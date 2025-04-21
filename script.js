@@ -72,13 +72,13 @@ function loadBooks() {
             });
         }
         $("#books-list").on("click", ".book", function() {
-            if ($(this).text().slice(0, 3) != "000") {
-                const entered_password = atob(atob(prompt("請輸入密碼", ""))).split("|")
-                if (entered_password.length != 2) return;
-                if (!authorized.includes(entered_password[0])) return;
-                if (!opened_books.includes($(this).text().slice(0, 3))) return;
-                if ($(this).text().slice(0, 3) != entered_password[1]) return;
-            }
+            // if ($(this).text().slice(0, 3) != "000") {
+            //     const entered_password = atob(atob(prompt("請輸入密碼", ""))).split("|")
+            //     if (entered_password.length != 2) return;
+            //     if (!authorized.includes(entered_password[0])) return;
+            //     if (!opened_books.includes($(this).text().slice(0, 3))) return;
+            //     if ($(this).text().slice(0, 3) != entered_password[1]) return;
+            // }
 
             // open book iframe logic here
             const lang = localStorage.getItem('language') || detectBrowserLanguage();
@@ -153,7 +153,8 @@ function loadPage(page, lang, book) {
         }
         if (basePage == 'book') {
             $.get(`templates/Books/${book}.html`, function(bookd) {
-                $("#bookview-board").html(bookd + '<br><br>' + $("#bookview-board").html());
+                const remil = `<h3>Please RESPECT the copyrights. 請尊重版權。著作権を尊重してください。</h3>`;
+                $("#bookview-board").html(remil + '<br><br>' + bookd + '<br><br>' + $("#bookview-board").html());
 				$("#feedback-form").attr("data-book", book);
                 $.get(`templates/Feedbacks/${book}.html`, function(feedbacks) {
                     $("#other-feedbacks").empty();
