@@ -1,7 +1,7 @@
 const translations = {
     en: {
-        "name": "Happy Magazines",
-        "welcome": "Welcome to Happy Magazines",
+        "name": "5F Magazines",
+        "welcome": "Welcome to 5F Magazines",
         "home": "Home",
         "ebooks": "Magazines",
         "ebook": "Magazines",
@@ -44,8 +44,8 @@ const translations = {
         "refresh-rem": "Close and reopen this APP frequently to get the latetst updates. We can't do it for you on mobile because of regulations. Another reason is that Albert is simply too lazy do research on how to do it for you, so..."
     },
     zh: {
-        "name": "開心週刊",
-        "welcome": "歡迎來到開心週刊",
+        "name": "五義週刊",
+        "welcome": "歡迎來到五義週刊",
         "home": "主頁面",
         "ebooks": "週刊",
         "ebook": "週刊",
@@ -88,8 +88,8 @@ const translations = {
         "refresh-rem": "我們建議經常完全關閉應APP在開啟來獲得最新更新。我們不能幫您做，應為Apple還有安卓太機車了。另外的原因則是因為Albert懶得研究如何幫您做，所以就這樣吧..."
     },
     jp: {
-        "name": "Happy Magazines",
-        "welcome": "Happy Magazines へようこそ",
+        "name": "5F Magazines",
+        "welcome": "5F Magazines へようこそ",
         "home": "ホーム",
         "ebooks": "電子書籍",
         "ebook": "電子書籍",
