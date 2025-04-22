@@ -44,6 +44,7 @@ const translations = {
         "c-ss": "Haru Wang, Chelsea Zeng, Ryan Lee - Social Studies Education Providers",
         "antispam": "Please do not spam feedbacks or post inappropriate content. Inappropriate content may vary, and we will leave that to the system bot to decide.If we detect suspicious activity, you will get a warning.",
         "app": "APP",
+        "course": "Courses",
         "courses": "Interesting Courses",
         "refresh-rem": "Close and reopen this APP frequently to get the latetst updates. We can't do it for you on mobile because of regulations. Another reason is that Albert is simply too lazy do research on how to do it for you, so..."
     },
@@ -92,6 +93,7 @@ const translations = {
         "c-ss": "王成宇、曾若晴、李天睿 - 社會知識提供者",
         "antispam": "請不要亂留言。亂留言包括但不限於一直留言、不雅言語、不恰當內容。如果系統偵測到異常活動，將發出警告。",
         "app": "應用程式",
+        "course": "課程",
         "courses": "課外的有趣課程",
         "refresh-rem": "我們建議經常完全關閉應APP在開啟來獲得最新更新。我們不能幫您做，應為Apple還有安卓太機車了。另外的原因則是因為Albert懶得研究如何幫您做，所以就這樣吧..."
     },
@@ -140,6 +142,7 @@ const translations = {
         "c-ss": "ハル、チェルシー、ライアン - 社会知識提供者",
         "antispam": "スパムフィードバックや不適切な内容の投稿はご遠慮ください。不適切な内容は様々ですが、その判断はシステムボットに委ねます。不審な行為を検出した場合は、警告が表示されます。",
         "app": "APP",
+        "course": "コース",
         "courses": "興味深いコース",
         "refresh-rem": "最新のアップデートを得るために、このAPPを頻繁に閉じたり開いたりしてください。我々は規制のためにあなたのためにモバイルでそれを行うことはできません。もう一つの理由は、アルバートは単にあなたのためにそれを行う方法についての研究を行うにはあまりにも怠惰なので、..."
     }
