@@ -1,7 +1,7 @@
 const translations = {
     en: {
-        "name": "5F Magazines",
-        "welcome": "Welcome to 5F Magazines",
+        "name": "Happy Magazines",
+        "welcome": "Welcome to Happy Magazines",
         "home": "Home",
         "ebooks": "Magazines",
         "ebook": "Magazines",
@@ -19,7 +19,7 @@ const translations = {
         "ceri-credits": "Certified icon created by Wahyu Adam - Flaticon",
         "hero-credits": "Image created by Ugur Akdemir - Unsplash",
         "opened": "Accessed Magazines",
-        "b.b.": "The 5F Bulletin Board", 
+        "b.b.": "The Happy Bulletin Board", 
         "b.b.-info": "Get the latest class news here!",
         "staff": "Staff List:",
         "g-email": "School Email (xxxxxx@wgps.tp.edu.tw):",
@@ -48,8 +48,8 @@ const translations = {
         "refresh-rem": "Close and reopen this APP frequently to get the latetst updates. We can't do it for you on mobile because of regulations. Another reason is that Albert is simply too lazy do research on how to do it for you, so..."
     },
     zh: {
-        "name": "五義週刊",
-        "welcome": "歡迎來到五義週刊",
+        "name": "開心週刊",
+        "welcome": "歡迎來到開心週刊",
         "home": "主頁面",
         "ebooks": "週刊",
         "ebook": "週刊",
@@ -96,8 +96,8 @@ const translations = {
         "refresh-rem": "我們建議經常完全關閉應APP在開啟來獲得最新更新。我們不能幫您做，應為Apple還有安卓太機車了。另外的原因則是因為Albert懶得研究如何幫您做，所以就這樣吧..."
     },
     jp: {
-        "name": "5F Magazines",
-        "welcome": "5F Magazines へようこそ",
+        "name": "Happy Magazines",
+        "welcome": "Happy Magazines へようこそ",
         "home": "ホーム",
         "ebooks": "雑誌",
         "ebook": "雑誌",
@@ -110,7 +110,7 @@ const translations = {
         "dark-mode": "ダークモード",
         "change-language": "言語",
         "bulletin": "掲示板",
-        "b.b.": "5F 掲示板",
+        "b.b.": "Happy 掲示板",
         "b.b.-info": "最新のクラスニュースはこちら！",
         "thanks": "以下の団体および個人に感謝する:",
         "fav-credits": "ウェブサイトのファビコンはFlaticonのIllosalzによって作られた。",
