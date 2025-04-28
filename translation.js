@@ -4,7 +4,7 @@ const translations = {
         "welcome": "Welcome to Happy Magazines",
         "home": "Home",
         "ebooks": "Magazines",
-        "ebook": "Magazines",
+        "ebook": "Magazine",
         "trailer": "Trailer",
         "construct": "Making...",
         "terms": "Terms",
