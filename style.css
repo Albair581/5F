@@ -434,7 +434,7 @@ input:checked + .slider:before {
 
 
 /* Responsive Design */
-@media (max-width: 800px) {
+@media (max-width: 850px) {
     .navbar-toggler {
         display: block;
     }
