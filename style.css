@@ -316,7 +316,7 @@ input[type=text], input[type=email], textarea {
     border-radius: 15px;
     text-align: center;
     margin: auto;
-    width: 70vw;
+    width: 80vw;
     padding: 20px;
     border: 1px solid var(--text-color);
 }
@@ -432,8 +432,9 @@ input:checked + .slider:before {
     border-radius: 50%;
 }
 
+
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 800px) {
     .navbar-toggler {
         display: block;
     }
