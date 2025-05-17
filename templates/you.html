@@ -5,17 +5,62 @@
     <br>
     <div class="boxxxxxx">
         <h2 data-i18n="scoreboard">Scoreboard</h2>
+        <table class="fancy-table">
+            <colgroup>
+                <col style="width: 10%;">
+                <col style="width: 50%;">
+                <col style="width: 40%;">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>&num;</th>
+                    <th>Name</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody id="ranking-tbody">
+                
+            </tbody>
+        </table>
     </div>
+    <script>
+        function sortData(data) {
+            return data.sort((a, b) => b.points - a.points);
+        }
+
+        function displayTable(data) {
+            $("#ranking-body").empty();
+
+            data.forEach((item, index) => {
+                console.log("append");
+                $("#ranking-body").append(`
+                    <tr>
+                        <tr>${index + 1}</tr>
+                        <tr>${item.name}</tr>
+                        <tr>${item.points}</tr>    
+                    </tr>
+                `);
+            });
+        }
+
+        fetch('ranking.json')
+            .then(response => response.json())
+            .then(data => {
+                const sortedData = sortData(data);
+                displayTable(sortedData);
+            })
+            .catch(error => console.error('Error fetching JSON:', error));
+    </script>
     <br>
     <div class="boxxxxxx" style="text-align: center;">
         <h2 data-i18n="perks-rules">Exchange Rules</h2>
         <div class="boxxxxxx" style="width: 100%; text-align: left;">
             <h3>How to Get Points 如何得到分數</h3>
-            <p>* Good comments earn scores! 好的留言可獲得分數。</p>
-            <p>* Useful contributions earn scores! 好的貢獻可獲得分數。</p>
+            <p>* Good comments earn 1 point each! 好的留言可獲得一分。</p>
+            <p>* Useful contributions earn 3 points each! 好的貢獻可獲得三分。</p>
             <p>* Bad behavior loses scores! 壞的行為會扣分。</p>
-            <p>* Comment spams lose scores! 垃圾留言扣分。</p>
-            <p>* Violating rules loses scores! 違規會扣分。</p>
+            <p>* Comment spams lose 10 points! 垃圾留言扣十分。</p>
+            <p>* Violating rules loses 50 points! 違規會扣五十分。</p>
             <br>
             <p> &rightarrow; How much scores depends. 加/扣分的數量有我方決定。</p>
         </div>
