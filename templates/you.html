@@ -29,15 +29,16 @@
         }
 
         function displayTable(data) {
-            $("#ranking-body").empty();
+            const tbody = $("#ranking-tbody");
+            tbody.empty();
 
             data.forEach((item, index) => {
-                console.log("append");
-                $("#ranking-body").append(`
+                console.log("append row:", item.name, item.points); // Debug log
+                tbody.append(`
                     <tr>
-                        <tr>${index + 1}</tr>
-                        <tr>${item.name}</tr>
-                        <tr>${item.points}</tr>    
+                        <td>${index + 1}</td>
+                        <td>${item.name}</td>
+                        <td>${item.points}</td>
                     </tr>
                 `);
             });
