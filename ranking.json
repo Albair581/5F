@@ -1,4 +1,8 @@
 [
     { "name": "Lucas", "points": 1 },
-    { "name": "Ethan", "points": 1 }
+    { "name": "Ethan", "points": 1 },
+    { "name": "Champ", "points": 3 },
+    { "name": "Ian", "points": 3 },
+    { "name": "Davina", "points": 3 },
+    { "name": "Haru", "points": 3 }
 ]

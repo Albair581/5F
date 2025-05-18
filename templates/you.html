@@ -5,6 +5,7 @@
     <br>
     <div class="boxxxxxx">
         <h2 data-i18n="scoreboard">Scoreboard</h2>
+        <p style="font-style: italic;" data-i18n="scoreboard-notice">Activity started on 5/17, does not include staff.</p><br>
         <table class="fancy-table">
             <colgroup>
                 <col style="width: 10%;">
@@ -14,8 +15,8 @@
             <thead>
                 <tr>
                     <th>&num;</th>
-                    <th>Name</th>
-                    <th>Points</th>
+                    <th data-i18n="ranking-name">Name</th>
+                    <th data-i18n="scores">Points</th>
                 </tr>
             </thead>
             <tbody id="ranking-tbody">
@@ -56,10 +57,75 @@
     <div class="boxxxxxx" style="text-align: center;">
         <h2 data-i18n="perks-rules">Exchange Rules</h2>
         <div class="boxxxxxx" style="width: 100%; text-align: left;">
+            <h3>Store 商店</h3>
+            <div class="boxxxxxx" style="display: flex; width: 100%; overflow: auto;">
+                <div style="flex: 0 0 25%; max-width: 25%;">
+                    <img src="perks/priorreply.svg" alt="Priority Reply" style="width: 100%;" class="perk-img">
+                </div>
+                <div style="
+                    flex: 1;
+                    margin-left: 20px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: flex-start;
+                    text-align: left;
+                ">
+                    <h3 style="font-size: 35px; margin: 0;">優先回覆 Prior Replies</h3>
+                    <p style="margin: 0; font-size: 15px;">ID: 1</p>
+                    <p style="margin: 0; font-size: 20px;">
+                        我們通常要1~3天才會把留言審核完畢，有這個就可以更快。另外，這也可以讓你得到優先的留言回覆! You can get earlier replies from us and faster processing time!
+                    </p>
+                </div>
+            </div><br>
+            <div class="boxxxxxx" style="display: flex; width: 100%; overflow: auto;">
+                <div style="flex: 0 0 25%; max-width: 25%;">
+                    <img src="perks/supercomment.svg" alt="Priority Reply" style="width: 100%;" class="perk-img">
+                </div>
+                <div style="
+                    flex: 1;
+                    margin-left: 20px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: flex-start;
+                    text-align: left;
+                ">
+                    <h3 style="font-size: 35px; margin: 0;">超級留言 Super Comment</h3>
+                    <p style="margin: 0; font-size: 15px;">ID: 2</p>
+                    <p style="margin: 0; font-size: 20px;">
+                        這個可以讓你的留言置頂，也可以自己選顏色，特別的明顯。得到的分數也會依照留言內容增加喔! Your comments will be more customizable and stay at the top!
+                    </p>
+                </div>
+            </div><br>
+            <div class="boxxxxxx" style="display: flex; width: 100%; overflow: auto;">
+                <div style="flex: 0 0 25%; max-width: 25%;">
+                    <img src="perks/earlyview.svg" alt="Priority Reply" style="width: 100%;" class="perk-img">
+                </div>
+                <div style="
+                    flex: 1;
+                    margin-left: 20px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: flex-start;
+                    text-align: left;
+                ">
+                    <h3 style="font-size: 35px; margin: 0;">試閱新刊 Beta Ticket</h3>
+                    <p style="margin: 0; font-size: 15px;">ID: 3</p>
+                    <p style="margin: 0; font-size: 20px;">
+                        這樣就可以先看還在製作中的新週刊，例如下一期的週刊提前看等。You can now see the next magazine earlier!
+                    </p>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="boxxxxxx" style="width: 100%; text-align: left;">
             <h3>How to Get Points 如何得到分數</h3>
             <p>* Good comments earn 1 point each! 好的留言可獲得一分。</p>
             <p>* Useful contributions earn 3 points each! 好的貢獻可獲得三分。</p>
-            <p>* Bad behavior loses scores! 壞的行為會扣分。</p>
+            <p>* Reporting rule violators earn 10 points each! 檢舉犯規這可得十分。</p>
+            <p>* Bad behavior loses scores! 壞的行為會扣分。 (DEPENDS)</p>
             <p>* Comment spams lose 10 points! 垃圾留言扣十分。</p>
             <p>* Violating rules loses 50 points! 違規會扣五十分。</p>
             <br>

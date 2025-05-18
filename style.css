@@ -62,6 +62,10 @@
 }
 
 
+.perk-img {
+    border-radius: 15px;
+}
+
 
 
 * {
@@ -74,9 +78,7 @@
 #books-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* This spreads items across the container */
-    gap: 5px; /* Adds consistent spacing */
-    flex-direction: row;
+    gap: 5px;
 }
 
 .book {
