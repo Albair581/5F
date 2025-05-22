@@ -2,8 +2,11 @@
     { "name": "Lucas", "points": 1 },
     { "name": "Champ", "points": 3 },
     { "name": "Ian", "points": 3 },
-    { "name": "Davina", "points": 4 },
+    { "name": "Davina", "points": 5 },
     { "name": "Haru", "points": 3 },
     { "name": "Raphael", "points": 1 },
-    { "name": "Bella", "points": 2 }
+    { "name": "Bella", "points": 2 },
+    { "name": "Jeffrey", "points": 1 },
+    { "name": "Marcus", "points": 1 },
+    { "name": "Kimi", "points": 2 }
 ]
