@@ -1,6 +1,6 @@
 {
-    "name": "Happy eBook",
-    "short_name": "eBook",
+    "name": "開心週刊",
+    "short_name": "開心週刊",
     "start_url": "https://albair581.github.io/5F/index.html",
     "display": "standalone",
     "background_color": "#f8f9fa",
