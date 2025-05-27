@@ -1,6 +1,35 @@
 <section class="welcome-section">
     <div class="boxxxxxx">
         <h2 data-i18n="inventory">INVENTORY</h2>
+        <div class="boxxxxxx" style="width: auto" id="inventory-box-div">
+
+        </div>
+        <script>
+            localStorage.getItem("priorreply") && $("#inventory-box-div").append(`
+                <div class="perk-box">
+                    <img src="perks/priorreply.svg" alt="Prior Reply" class="perk-img" style="width: 100px;">
+                    <p>x${JSON.parse(localStorage.getItem("priorreply")).quantity}</p>    
+                </div>
+            `);
+            localStorage.getItem("supercomment") && $("#inventory-box-div").append(`
+                <div class="perk-box">
+                    <img src="perks/supercomment.svg" alt="Super Comment" class="perk-img" style="width: 100px;">
+                    <p>x${JSON.parse(localStorage.getItem("supercomment")).quantity}</p>    
+                </div>
+            `);
+            localStorage.getItem("websiteskin") && $("#inventory-box-div").append(`
+                <div class="perk-box">
+                    <img src="perks/skin.svg" alt="Website Skin" class="perk-img" style="width: 100px;">
+                    <p>x${JSON.parse(localStorage.getItem("websiteskin")).quantity}</p>    
+                </div>
+            `);
+            localStorage.getItem("betaticket") && $("#inventory-box-div").append(`
+                <div class="perk-box">
+                    <img src="perks/earlyview.svg" alt="Beta Ticket" class="perk-img" style="width: 100px;">
+                    <p>x${JSON.parse(localStorage.getItem("betaticket")).quantity}</p>    
+                </div>
+            `);
+        </script>
     </div>
     <br>
     <div class="boxxxxxx">
@@ -56,6 +85,65 @@
     <br>
     <div class="boxxxxxx" style="text-align: center;">
         <h2 data-i18n="perks-rules">Exchange Rules</h2>
+        <label for="exchange-serial"></label>
+        <input type="text" name="exchange-serial" id="exchange-serial" placeholder="CODE" style="width: 300px; padding: 10px; font-size: 16px;">
+        <button id="exchange-button" style="padding: 10px; font-size: 16px;">OK</button>
+        <script>
+            $("#exchange-button").click(function() {
+                const perks = {
+                    "1": "priorreply",
+                    "2": "supercomment",
+                    "3": "websiteskin",
+                    "4": "betaticket"
+                }
+                const serial = $("#exchange-serial").val().trim();
+                if (serial === "") {
+                    alert("Please enter a valid exchange code.");
+                    return;
+                }
+                let decoded = "";
+                try {
+                    decoded = atob(atob(serial)).split("|"); // Double decode
+                } catch {
+                    alert("Please enter a valid exchange code.");
+                    return;
+                }
+                // check for cheaters
+                if ((localStorage.getItem(perks[decoded[3].toString()]) ? JSON.parse(localStorage.getItem(perks[decoded[3].toString()])).code_used : "blah").includes(serial)) {
+                    alert("You have already redeemed this code. Error code: REPEP_REDEEM");
+                    return;
+                }
+                // perform checksums
+                if (decoded.length !== 4 || decoded[0] !== "VERIFIED") {
+                    alert("Invalid exchange code. Contact us for help if the code is what we gave you. Error code: INVALID_UNVERIFIED");
+                    return;
+                }
+                // check expiration
+                if (new Date(decoded[1]) < Date.now()) {
+                    alert("This exchange code has expired. Please contact us for a new one. Error code: EXPIRED");
+                    return;
+                }
+                // check perk
+                if ([5, 6, 7, 8].includes(parseInt(decoded[3]))) {
+                    alert(`We probably gave you the wrong code. Please contact us for help. Error code: WRONG_PERK${parseInt(decoded[3])}`);
+                    return;
+                }
+
+                // give perk
+                const quant = localStorage.getItem(perks[decoded[3].toString()]) ? JSON.parse(localStorage.getItem(perks[decoded[3].toString()])).quantity + 1 : 1
+                const used = localStorage.getItem(perks[decoded[3].toString()]) ? JSON.parse(localStorage.getItem(perks[decoded[3].toString()])).code_used : "";
+                localStorage.setItem(perks[decoded[3].toString()], JSON.stringify({
+                    id: decoded[3],
+                    redeemedAt: Date.now(),
+                    code_used: used + serial,
+                    quantity: quant
+                }));
+                alert(`You have successfully redeemed the perk with ID ${decoded[3]}!`);
+
+                $("#exchange-serial").val(""); // Clear input after exchange
+            });
+        </script>
+        <br><br>
         <div class="boxxxxxx" style="width: 100%; text-align: left;">
             <h3>Store 商店</h3>
             <div class="boxxxxxx" style="display: flex; width: 100%; overflow: auto;">
@@ -174,7 +262,7 @@
                     <h3 style="font-size: 35px; margin: 0;">員工面試 Become Staff</h3>
                     <p style="margin: 0; font-size: 15px;">ID: 6 &nbsp;&nbsp;&nbsp; 60pts</p>
                     <p style="margin: 0; font-size: 20px;">
-                        以此面試成為員工的機會，一起為更好的週刊效勞。A chance to become staff and make better magazines with us!
+                        以此面試成為員工的機會，一起為更好的週刊效勞。A chance to become staff and make better magazines with us! (此獎項不可在網站上領取，請另洽。This perk is unavailable on this site, notify us to redeem.)
                     </p>
                 </div>
             </div><br>
