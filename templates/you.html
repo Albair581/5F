@@ -109,7 +109,11 @@
                     return;
                 }
                 // check for cheaters
-                if ((localStorage.getItem(perks[decoded[3].toString()]) ? JSON.parse(localStorage.getItem(perks[decoded[3].toString()])).code_used : "blah").includes(serial)) {
+                if ((localStorage.getItem(perks[decoded[3].toString()]) ? JSON.parse(localStorage.getItem(perks[decoded[3].toString()])).code_used : []).includes(serial)) {
+                    alert("You have already redeemed this code. Error code: REPEP_REDEEM");
+                    return;
+                }
+                if ((localStorage.getItem("redeemed") ? JSON.parse(localStorage.getItem("redeemed")) : []).includes(serial)) {
                     alert("You have already redeemed this code. Error code: REPEP_REDEEM");
                     return;
                 }
@@ -138,6 +142,9 @@
                     code_used: used + serial,
                     quantity: quant
                 }));
+                let redeemed = localStorage.getItem("redeemed") ? JSON.parse(localStorage.getItem("redeemed")) : [];
+                redeemed.push(serial);
+                localStorage.setItem("redeemed", JSON.stringify(redeemed));
                 alert(`You have successfully redeemed the perk with ID ${decoded[3]}!`);
 
                 $("#exchange-serial").val(""); // Clear input after exchange

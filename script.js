@@ -103,15 +103,36 @@ function submitFeedback() {
         item: "Book" + $("#feedback-form").data("book"),
         subject: "Happy eBook Feedback", // change if prior reply
         time: new Date().toLocaleString(),
-        supere: "Disabled",
-        color: "lightyellow"
+        supere: $("#enable-super").val() == "on" ? "Enabled" : "Disabled",
+        color: $("#feedback-color").val()
+    }
+
+    if ($("#enable-super").val() == "on") {
+        const curquant = JSON.parse(localStorage.getItem("supercomment")).quantity;
+        if (curquant == 1) {
+            localStorage.removeItem("supercomment");
+        } else if (curquant > 1) {
+            const newquant = curquant - 1;
+            let cursup = JSON.parse(localStorage.getItem("supercomment"));
+            cursup.quantity = newquant;
+            localStorage.setItem("supercomment", JSON.stringify(cursup));
+        }
     }
 
     emailjs.send("service_0vk5fnt", "template_lu711p6", params)
         .then( 
             alert("感謝您寶貴的意見! Thanks for your precious feedback!"),
-            $("#feedback-form").trigger("reset")
+            $("#feedback-message").val("")
         )
+
+    if (localStorage.getItem("supercomment") == null) {
+        $("#enable-super").prop("checked", false);
+        $("#enable-super").prop("disabled", true);
+        $("#enable-super").css("cursor", "not-allowed");
+        $("#feedback-color").val("#FFFFFF");
+        $("#feedback-color").prop("disabled", true);
+        $("#feedback-color").css("cursor", "not-allowed");
+    }
 }
 
 $(document).on("submit", "#feedback-form", function(event) {
