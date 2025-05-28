@@ -101,8 +101,10 @@ function submitFeedback() {
         name: $("#feedback-name").val(),
         message: $("#feedback-message").val(),
         item: "Book" + $("#feedback-form").data("book"),
-        subject: "Happy eBook Feedback",
-        time: new Date().toLocaleString()
+        subject: "Happy eBook Feedback", // change if prior reply
+        time: new Date().toLocaleString(),
+        supere: "Disabled",
+        color: "lightyellow"
     }
 
     emailjs.send("service_0vk5fnt", "template_lu711p6", params)
