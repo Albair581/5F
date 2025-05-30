@@ -95,6 +95,12 @@ function loadBooks() {
  * submitFeedback();
  */
 function submitFeedback() {
+    const emailgex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (emailgex.test($("#feedback-email").val()) == false) {
+        alert("請輸入有效的電子郵件地址。Please enter a valid email address.");
+        return;
+    }
+
     let params = {
         company: "Happy eBook Team",
         email: $("#feedback-email").val(), 
@@ -103,12 +109,12 @@ function submitFeedback() {
         item: "Book" + $("#feedback-form").data("book"),
         subject: "Happy eBook Feedback", // change if prior reply
         time: new Date().toLocaleString(),
-        supere: $("#enable-super").val() == "on" ? "Enabled" : "Disabled",
+        supere: $("#enable-super").is(":checked") ? "Enabled" : "Disabled",
         color: $("#feedback-color").val()
     }
 
-    if ($("#enable-super").val() == "on") {
-        const curquant = JSON.parse(localStorage.getItem("supercomment")).quantity;
+    if ($("#enable-super").is(":checked")) {
+        const curquant = JSON.parse(localStorage.getItem("supercomment") ? localStorage.getItem("suppercomment") : "{quantity: 0}").quantity;
         if (curquant == 1) {
             localStorage.removeItem("supercomment");
         } else if (curquant > 1) {
