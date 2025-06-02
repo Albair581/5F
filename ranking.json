@@ -1,12 +1,12 @@
 [
-    { "name": "Lucas", "points": 5 },
-    { "name": "Champ", "points": 6 },
-    { "name": "Ian", "points": 7 },
-    { "name": "Davina", "points": 10 },
+    { "name": "Lucas", "points": 6 },
+    { "name": "Champ", "points": 9 },
+    { "name": "Ian", "points": 10 },
+    { "name": "Davina", "points": 13 },
     { "name": "Haru", "points": 6 },
     { "name": "Raphael", "points": 2 },
     { "name": "Bella", "points": 6 },
-    { "name": "Jeffrey", "points": 7 },
+    { "name": "Jeffrey", "points": 10 },
     { "name": "Kimi", "points": 2 },
     { "name": "Leaf", "points": 3 },
     { "name": "Davina's Mom", "points": 3 }
