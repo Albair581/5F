@@ -79,6 +79,80 @@
             }
 
         </style>
+        <script>
+            (function() {
+                const normalOverlayId = 'shutdown-overlay';
+                const sassOverlayId = 'angry-overlay';
+                let roasted = false;
+
+                function createAngryOverlay() {
+                    if (document.getElementById(sassOverlayId)) return;
+
+                    const angry = document.createElement('div');
+                    angry.id = sassOverlayId;
+                    angry.style = `
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: rgba(0, 0, 0, 0.95);
+                        color: white;
+                        z-index: 999999;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        text-align: center;
+                        font-family: sans-serif;
+                        pointer-events: all;
+                        padding: 2rem;
+                    `;
+                    angry.innerHTML = `
+                        <div>
+                            <h1>💻 No, no and a final NO.</h1>
+                            <p>Don't think removing some divs and styles makes you a pro hacker. Honestly, you suck.</p>
+                            <p>DevTools are for REAL developers. Not keyboard cowboys like you.</p>
+                            <p>Refresh the page before we do it for you. You've been logged. 🚓</p>
+                            <p>Refrehsing the website in 5 seconds. 💥</p>
+                        </div>
+                    `;
+                    document.body.appendChild(angry);
+                }
+
+                const observer = new MutationObserver(() => {
+                    const overlay = document.getElementById(normalOverlayId);
+                    if (!overlay && !roasted) {
+                        roasted = true;
+
+                        console.warn("%c🛑 Hey you!", "color: red; font-size: 18px; font-weight: bold;");
+                        console.warn("%cRemoving the overlay doesn't make you a pro hacker.", "color: white; font-size: 14px;");
+                        console.warn("%cDevTools are for debugging, not your career dreams. 😤", "color: gray; font-size: 14px;");
+
+                        createAngryOverlay();
+
+                        // Auto-refresh in 5 seconds for extra pettiness
+                        setTimeout(() => {
+                            console.log("You had your fun. We're done here.");
+                            location.reload();
+                        }, 5000);
+                    }
+                });
+
+                observer.observe(document.body, { childList: true, subtree: true });
+
+                // Optional: Block right click and keyboard shortcuts
+                window.addEventListener('contextmenu', e => e.preventDefault());
+                window.addEventListener('keydown', e => {
+                    if (
+                        ['F12', 'I', 'J', 'U', 'S'].includes(e.key.toUpperCase()) &&
+                        (e.ctrlKey || e.metaKey)
+                    ) {
+                        e.preventDefault();
+                    }
+                }, true);
+            })();
+        </script>
+
 
         <!-- Navigation Bar -->
         <nav class="navbar">
