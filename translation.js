@@ -2,7 +2,7 @@ const translations = {
     en: {
         "name": "Happy Magazines",
         "welcome": "Welcome to Happy Magazines",
-        "backupWarning": "⚠️ Please avoid clearing browser data (cookies and site data) or uninstalling the APP, since it will clear all your data (including inventory).",
+        "backupWarning": "⚠️ Please avoid clearing browser data (cookies and site data) or uninstalling the APP, since it will clear all your data (including inventory). Treat your backup file as a password. Please do not give it away.",
         "backupBtn": "Backup",
         "restoreBtn": "Restore",
         "home": "Home",
@@ -63,7 +63,7 @@ const translations = {
     zh: {
         "name": "開心週刊",
         "welcome": "歡迎來到開心週刊",
-        "backupWarning": "⚠️ 請勿清除瀏覽器資料(網頁版)或解除安裝本應用程式(APP版)，否則您的資料將會遺失。",
+        "backupWarning": "⚠️ 請勿清除瀏覽器資料(網頁版)或解除安裝本應用程式(APP版)，否則您的資料將會遺失。請將備份檔視為密碼，請勿隨意分享。",
         "backupBtn": "備份",
         "restoreBtn": "還原",
         "home": "主頁面",
@@ -125,7 +125,7 @@ const translations = {
     jp: {
         "name": "Happy Magazines",
         "welcome": "Happy Magazines へようこそ",
-        "backupWarning": "⚠️ ブラウザデータ（Web版）をクリアしたり、アプリをアンインストールしないでください。そうすると、すべてのデータ（在庫品を含む）が失われます。",
+        "backupWarning": "⚠️ ブラウザデータ（Web版）をクリアしたり、アプリをアンインストールしないでください。そうすると、すべてのデータ（在庫品を含む）が失われます。バックアップファイルはパスワードのようなものですので、他人に渡さないでください。",
         "backupBtn": "バックアップ",
         "restoreBtn": "復元",
         "home": "ホーム",
