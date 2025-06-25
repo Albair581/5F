@@ -66,19 +66,15 @@ function loadBooks() {
         $("#books-list").append("呃... 沒有東西... Nothing to see here!");
     } else {
         for (let i = 0; i < opened_books.length; i++) {
-            // $.get(`templates/Thumbnails/${opened_books[i]}.html`, function(data) {
-            //     $("#books-list").append(data);
-            //     loadLanguage(localStorage.getItem('language') || detectBrowserLanguage());
-            // });
             $.ajax({
                 url: `templates/Thumbnails/${opened_books[i]}.html`,
                 success: function(data) {
                     $("#books-list").append(data);
-                    loadLanguage(localStorage.getItem('language') || detectBrowserLanguage());
                 },
                 async: false
             });
         }
+        loadLanguage(localStorage.getItem('language') || detectBrowserLanguage());
         $("#books-list").on("click", ".book", function() {
             // open book iframe logic here
             const lang = localStorage.getItem('language') || detectBrowserLanguage();
