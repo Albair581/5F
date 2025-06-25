@@ -109,11 +109,28 @@ button {
     color: white;
     font-family: inherit;
     font-size: 0.85rem;
-    margin: aito;
+    margin: auto;
     transition: background-color .2s;
 }
 
 button:hover {
+    background-color: var(--secondary-color);
+}
+
+.custom-file-upload {
+    padding: 0.5rem;
+    border-radius: 4px;
+    background-color: var(--primary-color);
+    color: white;
+    font-family: inherit;
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: inline-block;
+    user-select: none;
+    transition: background-color 0.2s ease;
+}
+
+.custom-file-upload:hover {
     background-color: var(--secondary-color);
 }
 

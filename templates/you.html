@@ -1,4 +1,51 @@
 <section class="welcome-section">
+    <script>
+        function backupBase64() {
+            const json = JSON.stringify(localStorage);
+            const base64 = btoa(unescape(encodeURIComponent(json))); // Encode to UTF-8-safe base64
+            const blob = new Blob([base64], { type: "text/plain" });
+
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "backup.bak"; // 🔐 Totally looks serious now
+            a.click();
+
+            URL.revokeObjectURL(a.href);
+        }
+        
+        function restoreBase64(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                try {
+                    const base64 = e.target.result;
+                    const json = decodeURIComponent(escape(atob(base64)));
+                    const data = JSON.parse(json);
+
+                    for (let key in data) {
+                        localStorage.setItem(key, data[key]);
+                    }
+
+                    alert("✅ 資料還原成功！");
+                } catch (err) {
+                    alert("❌ 備份檔案錯誤或已損壞。");
+                    console.error(err);
+                }
+            };
+
+            reader.readAsText(file);
+        }
+    </script>
+    <div style="margin: 20px; text-align: center;">
+        <button data-i18n="backupBtn" id="backupbtn" onclick="backupBase64()">Backup</button>
+        &nbsp;&nbsp;&nbsp;
+        <label for="file-upload" class="custom-file-upload" data-i18n="restoreBtn">
+            備份
+        </label>
+        <input id="file-upload" type="file" accept=".bak,.txt" onchange="restoreBase64(event)" style="display:none;">
+    </div>
     <div class="boxxxxxx">
         <h2 data-i18n="inventory">INVENTORY</h2>
         <div class="boxxxxxx" style="width: auto" id="inventory-box-div">
@@ -118,7 +165,7 @@
                     return;
                 }
                 // perform checksums
-                if (decoded.length !== 4 || decoded[0] !== "VERIFIED") {
+                if (decoded.length !== 5 || decoded[0] !== "VERIFIED") {
                     alert("Invalid exchange code. Contact us for help if the code is what we gave you. Error code: INVALID_UNVERIFIED");
                     return;
                 }
@@ -132,9 +179,16 @@
                     alert(`We probably gave you the wrong code. Please contact us for help. Error code: WRONG_PERK${parseInt(decoded[3])}`);
                     return;
                 }
+                // check quant
+                try {
+                    parseInt(decoded[4]);
+                } catch (e) {
+                    alert("Invalid quantity in the exchange code. Contact us for help if the code is what we gave you. Error code: INVALID_QUANT");
+                    return;
+                }
 
                 // give perk
-                const quant = localStorage.getItem(perks[decoded[3].toString()]) ? JSON.parse(localStorage.getItem(perks[decoded[3].toString()])).quantity + 1 : 1
+                const quant = localStorage.getItem(perks[decoded[3].toString()]) ? JSON.parse(localStorage.getItem(perks[decoded[3].toString()])).quantity + parseInt(decoded[4]) : parseInt(decoded[4]);
                 const used = localStorage.getItem(perks[decoded[3].toString()]) ? JSON.parse(localStorage.getItem(perks[decoded[3].toString()])).code_used : "";
                 localStorage.setItem(perks[decoded[3].toString()], JSON.stringify({
                     id: decoded[3],
