@@ -202,6 +202,23 @@
                         <span class="slider round"></span>
                     </label>
                 </div>
+                <div id="custom-hero-upload" style="display: none;">
+                    <br>
+                    <hr>
+                    <br>
+                    <label data-i18n="hero-image-file">🌄 Upload your own hero image (file):</label><br>
+                    <label for="hero-image-input" class="custom-file-upload" data-i18n="hero-browse-file">
+                        Browse
+                    </label>
+                    <input id="hero-image-input" type="file" accept="image/*" style="display:none;">
+                    <br><br>
+
+                    <label data-i18n="hero-image-url">🌐 Or use a URL:</label><br>
+                    <input type="text" id="hero-image-url" placeholder="https://example.com/image.jpg"><br>
+                    <button id="apply-hero-url" style="margin-top: 5px">OK</button><br><br>
+
+                    <button id="reset-hero-image" data-i18n="reset-hero-image">🔄 Reset to default</button>
+                </div>
                 <br>
                 <hr>
                 <br>
@@ -222,6 +239,74 @@
                 <p style="display: none;" id="refresh-reminder" data-i18n="refresh-rem">Close and reopen this APP frequently to get the latetst updates. We can't do it for you on mobile because of regulations. Another reason is that Albert is simply too lazy do research on how to do it for you, so...</p>
             </div>
         </div>
+
+
+        <script>
+            $(document).ready(function () {
+                const heroImage = $(".hero-image img");
+                const websiteskinData = localStorage.getItem("websiteskin");
+
+                let parsedSkin = null;
+                try {
+                    parsedSkin = JSON.parse(websiteskinData);
+                } catch (e) {
+                    console.warn("Invalid websiteskin JSON");
+                }
+
+                // 1. Check if we should show the upload section
+                if (parsedSkin && parsedSkin.quantity > 0) {
+                    $("#custom-hero-upload").show();
+                }
+
+                // 2. Load custom image from localStorage if exists
+                const storedHeroImage = localStorage.getItem("customHeroImage");
+                if (storedHeroImage) {
+                    heroImage.attr("src", storedHeroImage);
+                }
+
+                // 3. File upload handling
+                $("#hero-image-input").on("change", function () {
+                    const file = this.files[0];
+                    if (!file) return;
+
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const imageUrl = e.target.result;
+                        heroImage.attr("src", imageUrl);
+                        localStorage.setItem("customHeroImage", imageUrl);
+                    };
+                    reader.readAsDataURL(file);
+                });
+
+                // 4. URL input handling
+                $("#apply-hero-url").on("click", function () {
+                    const url = $("#hero-image-url").val().trim();
+                    if (!url.match(/^https?:\/\/.+\.(jpg|jpeg|png|gif|webp)$/i)) {
+                        alert("Please enter a valid image URL ending in .jpg, .png, etc.");
+                        return;
+                    }
+
+                    // Preload image to check if valid
+                    const testImg = new Image();
+                    testImg.onload = function () {
+                        heroImage.attr("src", url);
+                        localStorage.setItem("customHeroImage", url);
+                    };
+                    testImg.onerror = function () {
+                        alert("Failed to load image from the URL.");
+                    };
+                    testImg.src = url;
+                });
+
+                // 5. Reset button
+                $("#reset-hero-image").on("click", function () {
+                    localStorage.removeItem("customHeroImage");
+                    heroImage.attr("src", "https://images.unsplash.com/photo-1526243741027-444d633d7365?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+                });
+            });
+            </script>
+
+
         
 
         <script src="translation.js"></script>
