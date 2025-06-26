@@ -105,12 +105,12 @@ function submitFeedback() {
         item: "Book" + $("#feedback-form").data("book"),
         subject: "Happy eBook Feedback", // change if prior reply
         time: new Date().toLocaleString(),
-        supere: $("#enable-super").is(":checked") ? "Enabled" : "Disabled",
+        supere: $("#enable-super").is(":checked") ? "Enabled, Prior" : ($("#enable-prior").is(":checked") ? "Prior" : "Disabled"),
         color: $("#feedback-color").val()
     }
 
     if ($("#enable-super").is(":checked")) {
-        const curquant = JSON.parse(localStorage.getItem("supercomment") ? localStorage.getItem("suppercomment") : "{quantity: 0}").quantity;
+        const curquant = JSON.parse(localStorage.getItem("supercomment") ? localStorage.getItem("supercomment") : "{quantity: 0}").quantity;
         if (curquant == 1) {
             localStorage.removeItem("supercomment");
         } else if (curquant > 1) {
@@ -120,11 +120,24 @@ function submitFeedback() {
             localStorage.setItem("supercomment", JSON.stringify(cursup));
         }
     }
+    if ($("#enable-prior").is(":checked") && !$("#enable-super").is(":checked")) {
+        const curquant = JSON.parse(localStorage.getItem("priorreply") ? localStorage.getItem("priorreply") : "{quantity: 0}").quantity;
+        if (curquant == 1) {
+            localStorage.removeItem("priorreply");
+        } else if (curquant > 1) {
+            const newquant = curquant - 1;
+            let cursup = JSON.parse(localStorage.getItem("priorreply"));
+            cursup.quantity = newquant;
+            localStorage.setItem("priorreply", JSON.stringify(cursup));
+        }
+    }
 
     emailjs.send("service_0vk5fnt", "template_lu711p6", params)
         .then( 
             alert("感謝您寶貴的意見! Thanks for your precious feedback!"),
-            $("#feedback-message").val("")
+            $("#feedback-message").val(""),
+            $("#enable-super").prop("checked", false),
+            $("#enable-prior").prop("checked", false),
         )
 
     if (localStorage.getItem("supercomment") == null) {
@@ -134,6 +147,12 @@ function submitFeedback() {
         $("#feedback-color").val("#FFFFFF");
         $("#feedback-color").prop("disabled", true);
         $("#feedback-color").css("cursor", "not-allowed");
+    }
+
+    if (localStorage.getItem("priorreply") == null) {
+        $("#enable-prior").prop("checked", false);
+        $("#enable-prior").prop("disabled", true);
+        $("#enable-prior").css("cursor", "not-allowed");
     }
 }
 

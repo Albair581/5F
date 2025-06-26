@@ -22,12 +22,19 @@
         <br>
         <label data-i18n="g-color" for="color" style="font-size: 0.85rem" >Color:</label><br>
         <input type="color" id="feedback-color" name="color" value="#FFFFFF" style="cursor: not-allowed" disabled/>
+        <br>
+        <input type="checkbox" name="prior-reply" id="enable-prior" style="cursor: not-allowed" disabled>
+        <label for="enable-prior" data-i18n="g-prior-reply">Use Prior Reply (Uses 1 Prior Reply)</label>
         <script>
             if (localStorage.getItem("supercomment")) {
                 $("#enable-super").prop("disabled", false);
                 $("#enable-super").prop("style", "cursor: pointer");
                 $("#feedback-color").prop("disabled", false);
                 $("#feedback-color").prop("style", "cursor: pointer");
+            }
+            if (localStorage.getItem("priorreply")) {
+                $("#enable-prior").prop("disabled", false);
+                $("#enable-prior").prop("style", "cursor: pointer");
             }
         </script>
         <br>
