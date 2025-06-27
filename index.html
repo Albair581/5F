@@ -217,6 +217,12 @@
                     <input type="text" id="hero-image-url" placeholder="https://example.com/image.jpg"><br>
                     <button id="apply-hero-url" style="margin-top: 5px">OK</button><br><br>
 
+                    <label for="x-offset-slider">↔️ Horizontal Position:</label><br>
+                    <input type="range" id="x-offset-slider" min="0" max="100" value="50"><br>
+
+                    <label for="y-offset-slider">↕️ Vertical Position:</label><br>
+                    <input type="range" id="y-offset-slider" min="0" max="100" value="50"><br><br><br>
+
                     <button id="reset-hero-image" data-i18n="reset-hero-image">🔄 Reset to default</button>
                 </div>
                 <br>
@@ -242,6 +248,28 @@
 
 
         <script>
+            function updateHeroPosition(x, y) {
+                $(".hero-image img").css("--x-offset", x + "%").css("--y-offset", y + "%");
+                localStorage.setItem("heroOffsetX", x);
+                localStorage.setItem("heroOffsetY", y);
+            }
+
+            $("#x-offset-slider, #y-offset-slider").on("input", function () {
+                const x = $("#x-offset-slider").val();
+                const y = $("#y-offset-slider").val();
+                updateHeroPosition(x, y);
+            });
+
+            // Apply saved offsets on page load
+            const savedX = localStorage.getItem("heroOffsetX") || 50;
+            const savedY = localStorage.getItem("heroOffsetY") || 50;
+            updateHeroPosition(savedX, savedY);
+
+            // Also update sliders on page load
+            $("#x-offset-slider").val(savedX);
+            $("#y-offset-slider").val(savedY);
+
+
             $(document).ready(function () {
                 const heroImage = $(".hero-image img");
                 const websiteskinData = localStorage.getItem("websiteskin");
@@ -281,19 +309,24 @@
                 // 4. URL input handling
                 $("#apply-hero-url").on("click", function () {
                     const url = $("#hero-image-url").val().trim();
-                    if (!url.match(/^https?:\/\/.+\.(jpg|jpeg|png|gif|webp)$/i)) {
-                        alert("Please enter a valid image URL ending in .jpg, .png, etc.");
+
+                    // Allow either a real URL or a data:image base64 string
+                    const isValidImage = /^https?:\/\/.+/i.test(url) || /^data:image\/.+;base64,/i.test(url);
+
+                    if (!isValidImage) {
+                        alert("Please enter a valid image URL or base64 image data. 無法讀取圖片。");
                         return;
                     }
 
-                    // Preload image to check if valid
+                    // Test the image by trying to load it
                     const testImg = new Image();
                     testImg.onload = function () {
-                        heroImage.attr("src", url);
+                        $(".hero-image img").attr("src", url);
                         localStorage.setItem("customHeroImage", url);
+                        alert("✅ Hero image updated! 成功更換圖片!");
                     };
                     testImg.onerror = function () {
-                        alert("Failed to load image from the URL.");
+                        alert("❌ Failed to load the image. Please check your link or base64 data. 無法讀取圖片。");
                     };
                     testImg.src = url;
                 });
@@ -301,7 +334,14 @@
                 // 5. Reset button
                 $("#reset-hero-image").on("click", function () {
                     localStorage.removeItem("customHeroImage");
-                    heroImage.attr("src", "https://images.unsplash.com/photo-1526243741027-444d633d7365?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+                    localStorage.removeItem("heroOffsetX");
+                    localStorage.removeItem("heroOffsetY");
+                    $(".hero-image img")
+                        .attr("src", "https://images.unsplash.com/photo-1526243741027-444d633d7365?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
+                        .css("--x-offset", "50%")
+                        .css("--y-offset", "50%");
+                    $("#x-offset-slider").val(50);
+                    $("#y-offset-slider").val(50);
                 });
             });
             </script>

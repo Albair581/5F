@@ -234,6 +234,8 @@ button:hover {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: var(--x-offset, 50%) var(--y-offset, 50%);
+    transition: object-position 0.3s ease;
 }
 
 .hero-overlay {
