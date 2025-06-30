@@ -41,7 +41,7 @@ function loadLanguage(lang) {
 
 // NOTE:
 // ---------------------------------------------------------------------------------//
-const opened_books = ["000", "001", "003", "004", "005", "008"];
+const opened_books = ["000", "001", "003", "004", "005", "008", "009", "summer2025"];
 const authorized = [
     "staff-albert", "staff-ray", "staff-ethan", "staff-marcus", "staff-sophia", // staff
     "cont-wilbur", "cont-champ", "cont-ian", "cont-ivan", // contributors
@@ -78,7 +78,7 @@ function loadBooks() {
         $("#books-list").on("click", ".book", function() {
             // open book iframe logic here
             const lang = localStorage.getItem('language') || detectBrowserLanguage();
-            loadPage("book", lang, $(this).text().slice(0, 3));
+            loadPage("book", lang, $(this).data("ebook"));
         });        
     }
 }
@@ -179,7 +179,7 @@ $(document).on("submit", "#feedback-form", function(event) {
 function loadPage(page, lang, book) {
     // Extract the base page name without parameters
     let basePage = page ? (page.replace("#", '').split(/[?#]/)[0] || 'home') : 'home';
-    if (page == "book" && !book) basePage = 'home';
+    if (page == "book" && !book) basePage = 'ebooks';
     const query = window.location.search.replace("?", "");
     
     // Update active nav link (use basePage for selector)
