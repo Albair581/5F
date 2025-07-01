@@ -41,7 +41,7 @@ function loadLanguage(lang) {
 
 // NOTE:
 // ---------------------------------------------------------------------------------//
-const opened_books = ["000", "001", "003", "004", "005", "008", "009", "summer2025"];
+const opened_books = ["000", "001", "003", "004", "005", "008", "009", "saytoben", "summer2025"];
 const authorized = [
     "staff-albert", "staff-ray", "staff-ethan", "staff-marcus", "staff-sophia", // staff
     "cont-wilbur", "cont-champ", "cont-ian", "cont-ivan", // contributors
@@ -199,12 +199,16 @@ function loadPage(page, lang, book) {
             $.get(`templates/Books/${book}.html`, function(bookd) {
                 const remil = `<h3>Please RESPECT the copyrights. 請尊重版權。著作権を尊重してください。</h3>`;
                 if (book != "002") {
-                    $("#bookview-board").html(remil + '<br><br>' + bookd + '<br><br>' + $("#bookview-board").html());
-                    $("#feedback-form").attr("data-book", book);
-                    $.get(`templates/Feedbacks/${book}.html`, function(feedbacks) {
-                        $("#other-feedbacks").empty();
-                        $("#other-feedbacks").append(feedbacks);
-                    });
+                    if (book == "saytoben") {
+                        $("#bookview-board").html(remil + '<br><br>' + bookd);
+                    } else {
+                        $("#bookview-board").html(remil + '<br><br>' + bookd + '<br><br>' + $("#bookview-board").html());
+                        $("#feedback-form").attr("data-book", book);
+                        $.get(`templates/Feedbacks/${book}.html`, function(feedbacks) {
+                            $("#other-feedbacks").empty();
+                            $("#other-feedbacks").append(feedbacks);
+                        });
+                    }
                 } else {
                     console.log("Test!");
                     $("#bookview-board").html(remil + '<br><br>' + bookd);
