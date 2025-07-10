@@ -35,7 +35,7 @@ const translations = {
         "opened": "Accessed Magazines",
         "b.b.": "The Happy Bulletin Board", 
         "b.b.-info": "Get the latest news here!",
-        "staff": "Staff List:",
+        "stafflist": "Staff List:",
         "g-email": "Email:",
         "g-name": "Full Name:",
         "g-feedback": "Feedback",
