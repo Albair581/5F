@@ -1,7 +1,7 @@
 [
   { "name": "Lucas", "points": 9.26 },
   { "name": "Champ", "points": 19.43 },
-  { "name": "Ian", "points": 16.8 },
+  { "name": "Ian", "points": 19.8 },
   { "name": "Davina", "points": 25.36 },
   { "name": "Haru", "points": 8 },
   { "name": "Wilbur", "points": 4.73 },
@@ -11,5 +11,5 @@
   { "name": "Kimi", "points": 5.85 },
   { "name": "Leaf", "points": 3.89 },
   { "name": "Davina's Mom", "points": 4 },
-  { "name": "Benedict", "points": 5.5 }
+  { "name": "Benedict", "points": 8.5 }
 ]
