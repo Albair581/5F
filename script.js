@@ -195,14 +195,14 @@ function loadPage(page, lang, book) {
         if (basePage == 'ebooks') {
             loadBooks();
         }
-        if (basePage == 'book') {
+        if (basePage == 'book' || basePage.startsWith('book_')) {
             $.get(`templates/Books/${book}.html`, function(bookd) {
                 const remil = `<h3>Please RESPECT the copyrights. 請尊重版權。著作権を尊重してください。</h3>`;
                 if (book != "002") {
                     if (book == "saytoben") {
                         $("#bookview-board").html(remil + '<br><br>' + bookd);
                     } else {
-                        $("#bookview-board").html(remil + '<br><br>' + bookd + '<br><br>' + $("#bookview-board").html());
+                        $("#bookview-board").html(remil + '<br><br>' + bookd + $("#bookview-board").html());
                         $("#feedback-form").attr("data-book", book);
                         $.get(`templates/Feedbacks/${book}.html`, function(feedbacks) {
                             $("#other-feedbacks").empty();
