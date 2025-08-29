@@ -1,7 +1,32 @@
 <section class="welcome-section">
+    <h1 id="birthday-title-home">HAPPY BIRTHDAY!!!</h1>
+    <h2 style="color: var(--text-color)">Today is Benedict's and Raphael's dad's birthday today!!!</h2>
     <h1 data-i18n="welcome">歡迎來到開心電子書</h1>
     <p data-i18n="description">這裡提供豐富的電子書資源，讓您隨時隨地享受閱讀的樂趣。</p>
     <p data-i18n="backupWarning" style="padding: 10px; margin: 10px;">
         ⚠️ 請勿清除瀏覽器資料(網頁版)或解除安裝本應用程式(APP版)，否則您的資料將會遺失。
     </p>
+
+    <script>
+        let confettiActive = false;
+
+        $("#birthday-title-home").click(function () {
+            if (confettiActive) return; // ignore if already running
+            confettiActive = true;
+
+            const duration = 3 * 1000; // 3 seconds
+            const animationEnd = Date.now() + duration;
+
+            (function frame() {
+                confetti({ particleCount: 4, angle: 60, spread: 100, origin: { x: 0 } });
+                confetti({ particleCount: 4, angle: 120, spread: 100, origin: { x: 1 } });
+
+                if (Date.now() < animationEnd) {
+                    requestAnimationFrame(frame);
+                } else {
+                    confettiActive = false; // reset after done
+                }
+            })();
+        });
+    </script>
 </section>
