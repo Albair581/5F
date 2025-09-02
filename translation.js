@@ -52,8 +52,9 @@ const translations = {
         "perks-rules": "Exchange Rules",
         "contri": "Contributor",
         "discord-server": "Our Discord Server",
-        "c-ceo": "Ray Chen - CEO & Magazines Creator",
-        "c-dev": "Albert Huang - Main Developer",
+        "c-ceo": "Ray Chen - CEO & Magazines Publisher",
+        // MARK: CHANGE THIS BACK
+        "c-dev": "Albert Huang - Main Developer & Substitute Magazines Publisher",
         "c-user": "Ethan Ye - User Management",
         "c-suer": "Marcus Lee - Cybersecurity Monitor",
         "c-illustrate": "Sophia Lee - Illustrator",
@@ -123,7 +124,8 @@ const translations = {
         "contri": "資料提供者",
         "discord-server": "我們的Discord伺服器",
         "c-ceo": "陳柏睿 - 董事長 & 週刊發行人",
-        "c-dev": "黃聿辰 - 網站發行人",
+        // MARK: CHANGE THIS BACK
+        "c-dev": "黃聿辰 - 網站發行人 & 代理週刊發行人",
         "c-user": "葉奕辰 - 使用者管理員",
         "c-suer": "李昕翰 - 資安部成員",
         "c-illustrate": "李昕玹 - 繪畫家",
@@ -193,7 +195,8 @@ const translations = {
         "contri": "貢献者",
         "discord-server": "ディスコードサーバー",
         "c-ceo": "レイ - CEO兼雑誌クリエイター",
-        "c-dev": "アルバート - 開発者",
+        // MARK: CHANGE THIS BACK
+        "c-dev": "アルバート - 開発者兼雑誌クリエイター",
         "c-user": "イーサン - ユーザー管理者",
         "c-suer": "マーカス - サイバーセキュリティ部員",
         "c-illustrate": "ソフィア - 繪畫家",
