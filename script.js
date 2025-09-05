@@ -41,7 +41,7 @@ function loadLanguage(lang) {
 
 // NOTE:
 // ---------------------------------------------------------------------------------//
-const opened_books = ["000", "001", "003", "004", "005", "008", "009", "saytoben", "summer2025"];
+const opened_books = ["000", "001", "003", "004", "005", "008", "009", "saytoben", "summer2025", "010"];
 const authorized = [
     "staff-albert", "staff-ray", "staff-ethan", "staff-marcus", "staff-sophia", // staff
     "cont-wilbur", "cont-champ", "cont-ian", "cont-ivan", // contributors
