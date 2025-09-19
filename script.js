@@ -41,7 +41,7 @@ function loadLanguage(lang) {
 
 // NOTE:
 // ---------------------------------------------------------------------------------//
-const opened_books = ["000", "001", "003", "004", "005", "008", "009", "saytoben", "summer2025", "010", "011"];
+const opened_books = ["000", "001", "003", "004", "005", "008", "009", "saytoben", "summer2025", "010", "011", "012", "teachers2025"];
 const authorized = [
     "staff-albert", "staff-ray", "staff-ethan", "staff-marcus", "staff-sophia", // staff
     "cont-wilbur", "cont-champ", "cont-ian", "cont-ivan", // contributors
@@ -179,6 +179,10 @@ $(document).on("submit", "#feedback-form", function(event) {
 function loadPage(page, lang, book) {
     // Extract the base page name without parameters
     let basePage = page ? (page.replace("#", '').split(/[?#]/)[0] || 'home') : 'home';
+    if (page.startsWith("book_")) {
+        book = page.replace("book_", "");
+        basePage = "book";
+    }
     if (page == "book" && !book) basePage = 'ebooks';
     const query = window.location.search.replace("?", "");
     
@@ -195,7 +199,7 @@ function loadPage(page, lang, book) {
         if (basePage == 'ebooks') {
             loadBooks();
         }
-        if (basePage == 'book' || basePage.startsWith('book_')) {
+        if (basePage == 'book') {
             $.get(`templates/Books/${book}.html`, function(bookd) {
                 const remil = `<h3>Please RESPECT the copyrights. 請尊重版權。著作権を尊重してください。</h3>`;
                 if (book != "002") {
@@ -225,7 +229,7 @@ function loadPage(page, lang, book) {
     
     // Update URL without reload
     const temp_par = new URLSearchParams('?' + query);
-    history.pushState(null, null, (temp_par.size == 0 ? '' : `?${query}`) + `#${basePage}`);
+    history.pushState(null, null, (temp_par.size == 0 ? '' : `?${query}`) + `#${basePage}` + (book ? `_${book}` : ''));
 }
 
 // Handle navigation clicks
