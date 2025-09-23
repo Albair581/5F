@@ -130,6 +130,34 @@
             .catch(error => console.error('Error fetching JSON:', error));
     </script>
     <br>
+    <div class="boxxxxxx">
+        <h2 data-i18n="warn-list">Warning List</h2>
+        <table class="fancy-table">
+            <colgroup>
+                <col style="width: 10%;">
+                <col style="width: 50%;">
+                <col style="width: 40%;">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>&num;</th>
+                    <th data-i18n="ranking-name">Name</th>
+                    <th data-i18n="warns-num">Warns</th>
+                    <th data-i18n="warn-status">Status</th>
+                </tr>
+            </thead>
+            <tbody id="ranking-tbody">
+                <tr>
+                    <td>1</td>
+                    <td>Jeffrey Wang</td>
+                    <td>1</td>
+                    <td data-i18n="warning">Warning</td>
+                    <!-- Edit other people's slide -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br>
     <div class="boxxxxxx" style="text-align: center;">
         <h2 data-i18n="perks-rules">Exchange Rules</h2>
         <label for="exchange-serial"></label>
