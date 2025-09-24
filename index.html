@@ -177,10 +177,10 @@
         <!-- Hero Section -->
         <section class="hero">
             <div class="hero-image">
-                <img src="https://images.unsplash.com/photo-1526243741027-444d633d7365?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Books on shelf">
+                <!-- <img src="https://images.unsplash.com/photo-1526243741027-444d633d7365?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Books on shelf"> -->
                 <!-- change styles.css back -->
                 <!-- MARK: Reset CSS + Remove -->
-                <!-- <img src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Birthday cakes" style="--x-offset: 50%; --y-offset: 71%;"> -->
+                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=2022&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Desk"> <!-- style="--x-offset: 50%; --y-offset: 71%;" -->
                 <script>
                 </script>
                 <div class="hero-overlay">
@@ -269,7 +269,7 @@
 
             // MARK: Reset to 50
             // Apply saved offsets on page load
-            // localStorage.setItem("heroOffsetY", 71);
+            localStorage.setItem("heroOffsetY", 60);
             const savedX = localStorage.getItem("heroOffsetX") || 50;
             // const savedY = localStorage.getItem("heroOffsetY") || 71;
             const savedY = localStorage.getItem("heroOffsetY") || 50;
@@ -410,7 +410,7 @@
             });
         </script>
 
-        <!-- <script>
+        <script>
             window.addEventListener("load", () => {
                 const duration = 3 * 1000; // 3 seconds
                 const animationEnd = Date.now() + duration;
@@ -434,6 +434,6 @@
                     }
                 })();
             });
-        </script> -->
+        </script>
     </body>
 </html>
