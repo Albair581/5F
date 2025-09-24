@@ -42,15 +42,7 @@ function loadLanguage(lang) {
 // NOTE:
 // ---------------------------------------------------------------------------------//
 const opened_books = ["000", "001", "003", "004", "005", "008", "009", "saytoben", "summer2025", "010", "011", "012", "teachers2025"];
-const authorized = [
-    "staff-albert", "staff-ray", "staff-ethan", "staff-marcus", "staff-sophia", // staff
-    "cont-wilbur", "cont-champ", "cont-ian", "cont-ivan", // contributors
-	"cont-haru", "cont-lucas", "cont-jeffrey", "cont-jack",
-    "cont-davina", "cont-chelsea", "cont-kimi", "cont-ryan",
-    
-    "access-raphael", "access-aaron", "access-leaf", // regular users
-	"access-adrian", "access-austin", "access-declan", "access-ben",
-];
+const beta_books = [];
 // ---------------------------------------------------------------------------------//
 
 /**
@@ -74,6 +66,17 @@ function loadBooks() {
                 async: false
             });
         }
+        if (localStorage.getItem("betaticket") && Number(localStorage.getItem("betaticket").quantity) > 0) {
+            for (let i = 0; i < beta_books.length; i++) {
+                $.ajax({
+                    url: `templates/Thumbnails/${beta_books[i]}.html`,
+                    success: function(data) {
+                        $("#books-list").append(data);
+                    },
+                    async: false
+                });
+            }
+        }
         loadLanguage(localStorage.getItem('language') || detectBrowserLanguage());
         $("#books-list").on("click", ".book", function() {
             // open book iframe logic here
@@ -83,76 +86,317 @@ function loadBooks() {
     }
 }
 
-/**
- * Submits a feedback form using emailjs library.
- * Collects the form fields and sends them to the emailjs service, which will then send an email to the recipient.
- * After submission, the form is reset.
- * @example
- * submitFeedback();
- */
-function submitFeedback() {
+// ----------
+/*
+========================================================================================
+ Banning Process Overview (Front-end IndexedDB helpers)
+ ---------------------------------------------------------------------------------------
+ 1. When a user submits feedback, their public IP is fetched and stored in localStorage
+    as "lastip" for admin convenience.
+ 2. Before accepting feedback, submitFeedback() checks if the IP is in the local ban list
+    (IndexedDB: "happy_ebook_bans", store: "banned_ips", keyPath: "ip").
+    - If banned, the feedback is silently blocked (no alert shown to user).
+ 3. On every page load (in $(document).ready()), the script fetches the user's IP.
+    - If the IP is banned, an alert is shown, and the main content is replaced with an
+      "Access denied" message. No further page loading occurs for banned IPs.
+ 4. Admins can ban or unban IPs using helper functions (window._bans) or by calling
+    banLastIP() from the console (which bans the last feedback submitter).
+ 5. The ban list is local to the user's browser. For global bans, server-side enforcement
+    is required.
+========================================================================================
+*/
+// ---------- IndexedDB helpers for banned IPs (front-end only) ----------
+// database: "happy_ebook_bans"; store: "banned_ips"; keyPath: "ip"
+function openBansDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open('happy_ebook_bans', 1);
+    req.onupgradeneeded = function (ev) {
+      const db = ev.target.result;
+      if (!db.objectStoreNames.contains('banned_ips')) {
+        const store = db.createObjectStore('banned_ips', { keyPath: 'ip' });
+        store.createIndex('created_at', 'created_at');
+      }
+    };
+    req.onsuccess = function (ev) {
+      resolve(ev.target.result);
+    };
+    req.onerror = function (ev) {
+      reject(ev.target.error);
+    };
+  });
+}
+
+async function addBannedIP(ip, reason = '') {
+  if (!ip) return false;
+  const db = await openBansDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction('banned_ips', 'readwrite');
+    const store = tx.objectStore('banned_ips');
+    const record = { ip: ip, reason: reason, created_at: new Date().toISOString() };
+    const r = store.put(record);
+    r.onsuccess = () => { resolve(true); };
+    r.onerror = (e) => { reject(e.target.error); };
+  });
+}
+
+async function removeBannedIP(ip) {
+  const db = await openBansDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction('banned_ips', 'readwrite');
+    const store = tx.objectStore('banned_ips');
+    const r = store.delete(ip);
+    r.onsuccess = () => resolve(true);
+    r.onerror = (e) => reject(e.target.error);
+  });
+}
+
+async function isIPBanned(ip) {
+  if (!ip) return false;
+  try {
+    const db = await openBansDB();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction('banned_ips', 'readonly');
+      const store = tx.objectStore('banned_ips');
+      const r = store.get(ip);
+      r.onsuccess = () => resolve(!!r.result);
+      r.onerror = (e) => reject(e.target.error);
+    });
+  } catch (e) {
+    // If IndexedDB is not available for some reason, be conservative and treat as not banned
+    console.error('isIPBanned error', e);
+    return false;
+  }
+}
+
+// helper to list banned IPs (useful for admin view in console)
+async function listBannedIPs() {
+  const db = await openBansDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction('banned_ips', 'readonly');
+    const store = tx.objectStore('banned_ips');
+    const items = [];
+    store.openCursor().onsuccess = function (ev) {
+      const cursor = ev.target.result;
+      if (cursor) {
+        items.push(cursor.value);
+        cursor.continue();
+      } else {
+        resolve(items);
+      }
+    };
+  });
+}
+
+// utility: ban the last IP that was saved in localStorage (set by submitFeedback)
+window.banLastIP = async function(reason = '') {
+  const ip = localStorage.getItem('lastip');
+  if (!ip) {
+    alert('No last IP found in localStorage. Submit a comment first or provide an IP.');
+    return;
+  }
+  await addBannedIP(ip, reason);
+  alert('Banned IP: ' + ip);
+};
+
+// utility: expose functions to window for quick admin use from console
+window._bans = {
+  add: addBannedIP,
+  remove: removeBannedIP,
+  isBanned: isIPBanned,
+  list: listBannedIPs
+};
+
+// --------- Admin helper functions for manual use from console ---------
+// Usage: window.adminBan.banIP(ip, reason), window.adminBan.unbanIP(ip), ...
+window.adminBan = {
+  /**
+   * Ban an IP address with an optional reason.
+   * @param {string} ip
+   * @param {string} reason
+   */
+  banIP: async function(ip, reason = '') {
+    if (!ip) {
+      console.error("banIP: Please provide a valid IP address.");
+      alert("banIP: Please provide a valid IP address.");
+      return;
+    }
+    try {
+      await addBannedIP(ip, reason);
+      const msg = `Banned IP: ${ip}` + (reason ? ` (Reason: ${reason})` : "");
+      console.log(msg);
+      alert(msg);
+    } catch (e) {
+      console.error("banIP error:", e);
+      alert("Failed to ban IP: " + ip);
+    }
+  },
+  /**
+   * Unban a previously banned IP address.
+   * @param {string} ip
+   */
+  unbanIP: async function(ip) {
+    if (!ip) {
+      console.error("unbanIP: Please provide a valid IP address.");
+      alert("unbanIP: Please provide a valid IP address.");
+      return;
+    }
+    try {
+      await removeBannedIP(ip);
+      const msg = `Unbanned IP: ${ip}`;
+      console.log(msg);
+      alert(msg);
+    } catch (e) {
+      console.error("unbanIP error:", e);
+      alert("Failed to unban IP: " + ip);
+    }
+  },
+  /**
+   * Check if an IP is currently banned.
+   * @param {string} ip
+   */
+  checkIP: async function(ip) {
+    if (!ip) {
+      console.error("checkIP: Please provide a valid IP address.");
+      alert("checkIP: Please provide a valid IP address.");
+      return;
+    }
+    try {
+      const banned = await isIPBanned(ip);
+      const msg = banned
+        ? `IP ${ip} is currently BANNED.`
+        : `IP ${ip} is NOT banned.`;
+      console.log(msg);
+      alert(msg);
+      return banned;
+    } catch (e) {
+      console.error("checkIP error:", e);
+      alert("Failed to check IP: " + ip);
+      return false;
+    }
+  },
+  /**
+   * Show all currently banned IPs in the console.
+   */
+  showBans: async function() {
+    try {
+      const bans = await listBannedIPs();
+      if (bans.length === 0) {
+        console.log("No banned IPs found.");
+        alert("No banned IPs found.");
+      } else {
+        console.log("Banned IPs:", bans);
+        alert("Listed " + bans.length + " banned IP(s) in the console.");
+      }
+      return bans;
+    } catch (e) {
+      console.error("showBans error:", e);
+      alert("Failed to list banned IPs.");
+      return [];
+    }
+  }
+};
+// --------- End adminBan helpers ---------
+
+// ---------- end IndexedDB helpers ----------
+
+// ------- Replacement submitFeedback function (checks bans before sending) -------
+async function submitFeedback() {
     const emailgex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (emailgex.test($("#feedback-email").val()) == false) {
         alert("請輸入有效的電子郵件地址。Please enter a valid email address.");
         return;
     }
 
-    let params = {
-        company: "Happy eBook Team",
-        email: $("#feedback-email").val(), 
-        name: $("#feedback-name").val(),
-        message: $("#feedback-message").val(),
-        item: "Book" + $("#feedback-form").data("book"),
-        subject: "Happy eBook Feedback", // change if prior reply
-        time: new Date().toLocaleString(),
-        supere: $("#enable-super").is(":checked") ? "Enabled, Prior" : ($("#enable-prior").is(":checked") ? "Prior" : "Disabled"),
-        color: $("#feedback-color").val()
+    // Try to get IP (best effort)
+    let ip = null;
+    try {
+        const response = await fetch("https://api.ipify.org?format=json");
+        const data = await response.json();
+        ip = data.ip;
+        // store for later admin banning convenience
+        localStorage.setItem("lastip", ip);
+    } catch (e) {
+        console.warn('Could not fetch IP:', e);
+        ip = localStorage.getItem('lastip') || 'Unknown';
     }
 
-    if ($("#enable-super").is(":checked")) {
-        const curquant = JSON.parse(localStorage.getItem("supercomment") ? localStorage.getItem("supercomment") : "{quantity: 0}").quantity;
-        if (curquant == 1) {
-            localStorage.removeItem("supercomment");
-        } else if (curquant > 1) {
-            const newquant = curquant - 1;
-            let cursup = JSON.parse(localStorage.getItem("supercomment"));
-            cursup.quantity = newquant;
-            localStorage.setItem("supercomment", JSON.stringify(cursup));
+    // Check if this IP is banned
+    try {
+        const banned = await isIPBanned(ip);
+        if (banned) {
+            // Silently block: do not alert, just return
+            return;
         }
+    } catch (e) {
+        console.error('Error checking ban list:', e);
+        // proceed but log — failing open is reasonable for availability
     }
-    if ($("#enable-prior").is(":checked") && !$("#enable-super").is(":checked")) {
-        const curquant = JSON.parse(localStorage.getItem("priorreply") ? localStorage.getItem("priorreply") : "{quantity: 0}").quantity;
-        if (curquant == 1) {
-            localStorage.removeItem("priorreply");
-        } else if (curquant > 1) {
-            const newquant = curquant - 1;
-            let cursup = JSON.parse(localStorage.getItem("priorreply"));
-            cursup.quantity = newquant;
-            localStorage.setItem("priorreply", JSON.stringify(cursup));
+
+    try {
+        // Build params and send email
+        let params = {
+            company: "Happy eBook Team",
+            email: $("#feedback-email").val(),
+            name: $("#feedback-name").val(),
+            message: $("#feedback-message").val(),
+            item: "Book" + $("#feedback-form").data("book"),
+            subject: "Happy eBook Feedback",
+            time: new Date().toLocaleString(),
+            supere: $("#enable-super").is(":checked") ? "Enabled, Prior" : ($("#enable-prior").is(":checked") ? "Prior" : "Disabled"),
+            color: $("#feedback-color").val(),
+            ipaddr: ip || 'Unknown'
+        };
+
+        // consume super/prior quantities same as before
+        if ($("#enable-super").is(":checked")) {
+            const curquant = JSON.parse(localStorage.getItem("supercomment") ? localStorage.getItem("supercomment") : "{quantity: 0}").quantity;
+            if (curquant == 1) {
+                localStorage.removeItem("supercomment");
+            } else if (curquant > 1) {
+                const newquant = curquant - 1;
+                let cursup = JSON.parse(localStorage.getItem("supercomment"));
+                cursup.quantity = newquant;
+                localStorage.setItem("supercomment", JSON.stringify(cursup));
+            }
         }
-    }
 
-    emailjs.send("service_0vk5fnt", "template_lu711p6", params)
-        .then( 
-            alert("感謝您寶貴的意見! Thanks for your precious feedback!"),
-            $("#feedback-message").val(""),
-            $("#enable-super").prop("checked", false),
-            $("#enable-prior").prop("checked", false),
-        )
+        if ($("#enable-prior").is(":checked") && !$("#enable-super").is(":checked")) {
+            const curquant = JSON.parse(localStorage.getItem("priorreply") ? localStorage.getItem("priorreply") : "{quantity: 0}").quantity;
+            if (curquant == 1) {
+                localStorage.removeItem("priorreply");
+            } else if (curquant > 1) {
+                const newquant = curquant - 1;
+                let cursup = JSON.parse(localStorage.getItem("priorreply"));
+                cursup.quantity = newquant;
+                localStorage.setItem("priorreply", JSON.stringify(cursup));
+            }
+        }
 
-    if (localStorage.getItem("supercomment") == null) {
+        await emailjs.send("service_0vk5fnt", "template_lu711p6", params);
+
+        alert("感謝您寶貴的意見! Thanks for your precious feedback!");
+        $("#feedback-message").val("");
         $("#enable-super").prop("checked", false);
-        $("#enable-super").prop("disabled", true);
-        $("#enable-super").css("cursor", "not-allowed");
-        $("#feedback-color").val("#FFFFFF");
-        $("#feedback-color").prop("disabled", true);
-        $("#feedback-color").css("cursor", "not-allowed");
-    }
-
-    if (localStorage.getItem("priorreply") == null) {
         $("#enable-prior").prop("checked", false);
-        $("#enable-prior").prop("disabled", true);
-        $("#enable-prior").css("cursor", "not-allowed");
+
+        if (localStorage.getItem("supercomment") == null) {
+            $("#enable-super").prop("checked", false);
+            $("#enable-super").prop("disabled", true);
+            $("#enable-super").css("cursor", "not-allowed");
+            $("#feedback-color").val("#FFFFFF");
+            $("#feedback-color").prop("disabled", true);
+            $("#feedback-color").css("cursor", "not-allowed");
+        }
+
+        if (localStorage.getItem("priorreply") == null) {
+            $("#enable-prior").prop("checked", false);
+            $("#enable-prior").prop("disabled", true);
+            $("#enable-prior").css("cursor", "not-allowed");
+        }
+
+    } catch (error) {
+        console.error("Error sending feedback:", error);
+        alert('無法送出回饋，請稍後再試。Failed to send feedback.');
     }
 }
 
@@ -202,21 +446,24 @@ function loadPage(page, lang, book) {
         if (basePage == 'book') {
             $.get(`templates/Books/${book}.html`, function(bookd) {
                 const remil = `<h3>Please RESPECT the copyrights. 請尊重版權。著作権を尊重してください。</h3>`;
-                if (book != "002") {
-                    if (book == "saytoben") {
-                        $("#bookview-board").html(remil + '<br><br>' + bookd);
-                    } else {
-                        $("#bookview-board").html(remil + '<br><br>' + bookd + $("#bookview-board").html());
-                        $("#feedback-form").attr("data-book", book);
-                        $.get(`templates/Feedbacks/${book}.html`, function(feedbacks) {
-                            $("#other-feedbacks").empty();
-                            $("#other-feedbacks").append(feedbacks);
-                        });
-                    }
+                const blueq = `<br><h3>If you see a blue question mark, reloading the page should fix the issue.<br>若出現藍色背景上的問號，重新加載即可解決問題。<br>青い背景に疑問符が表示された場合は、ページを再読み込みしてください。</h3>`;
+                if (book == "saytoben") {
+                    $("#bookview-board").html(remil + blueq.toString() + '<br><br>' + bookd);
+                } else if (book == "teachers2025") {
+                    $("#bookview-board").html(remil + blueq.toString() + '<br><br>' + bookd + $("#bookview-board").html());
+                    $("#feedback-form").attr("data-book", book);
+                    $.get(`templates/Feedbacks/${book}.html`, function(feedbacks) {
+                        $("#other-feedbacks").empty();
+                        $("#other-feedbacks").append(feedbacks);
+                    });
                 } else {
-                    console.log("Test!");
-                    $("#bookview-board").html(remil + '<br><br>' + bookd);
-                }
+                    $("#bookview-board").html(remil + blueq.toString() + '<br><br>' + bookd + $("#bookview-board").html());
+                    $("#feedback-form").attr("data-book", book);
+                    $.get(`templates/Feedbacks/${book}.html`, function(feedbacks) {
+                        $("#other-feedbacks").empty();
+                        $("#other-feedbacks").append(feedbacks);
+                    });
+                }                
             });
         }
         // Update translations for new content
@@ -248,7 +495,24 @@ window.addEventListener('popstate', function() {
 });
 
 
-$(document).ready(function() {
+$(document).ready(async function() {
+    // Wait for IP fetch to complete
+    let data = null;
+    try {
+        const response = await fetch("https://api.ipify.org?format=json");
+        data = await response.json();
+        console.log("Fetched IP address:", data.ip);
+        // localStorage.setItem("lastip", data.ip);
+        if (await isIPBanned(data.ip)) {
+            // Redirect banned users to a dedicated banner page
+            window.location.href = 'banned.html';
+            return;
+        }
+    } catch (e) {
+        // If IP fetch fails, proceed as normal (do not block)
+        console.warn('Could not fetch IP for ban check:', e);
+    }
+
     // Initialize language
     let currentLang = localStorage.getItem('language') || detectBrowserLanguage();
     loadLanguage(currentLang);
