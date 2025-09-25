@@ -41,7 +41,7 @@ function loadLanguage(lang) {
 
 // NOTE:
 // ---------------------------------------------------------------------------------//
-const opened_books = ["000", "001", "003", "004", "005", "008", "009", "saytoben", "summer2025", "010", "011", "012", "teachers2025"];
+const opened_books = ["000", "001", "003", "004", "005", "008", "009", "saytoben", "summer2025", "010", "011", "012", "teachers2025", "013"];
 const beta_books = [];
 // ---------------------------------------------------------------------------------//
 
@@ -105,199 +105,31 @@ function loadBooks() {
     is required.
 ========================================================================================
 */
-// ---------- IndexedDB helpers for banned IPs (front-end only) ----------
-// database: "happy_ebook_bans"; store: "banned_ips"; keyPath: "ip"
-function openBansDB() {
-  return new Promise((resolve, reject) => {
-    const req = indexedDB.open('happy_ebook_bans', 1);
-    req.onupgradeneeded = function (ev) {
-      const db = ev.target.result;
-      if (!db.objectStoreNames.contains('banned_ips')) {
-        const store = db.createObjectStore('banned_ips', { keyPath: 'ip' });
-        store.createIndex('created_at', 'created_at');
-      }
-    };
-    req.onsuccess = function (ev) {
-      resolve(ev.target.result);
-    };
-    req.onerror = function (ev) {
-      reject(ev.target.error);
-    };
-  });
-}
+// ---------- Static array for banned IPs (edit and commit to change bans) ----------
+// To ban an IP, add it to the array below and commit this file.
+window.bannedIPs = [
+    // Example banned IPs:
+    // "1.2.3.4",
+    // "5.6.7.8"
+];
 
-async function addBannedIP(ip, reason = '') {
-  if (!ip) return false;
-  const db = await openBansDB();
-  return new Promise((resolve, reject) => {
-    const tx = db.transaction('banned_ips', 'readwrite');
-    const store = tx.objectStore('banned_ips');
-    const record = { ip: ip, reason: reason, created_at: new Date().toISOString() };
-    const r = store.put(record);
-    r.onsuccess = () => { resolve(true); };
-    r.onerror = (e) => { reject(e.target.error); };
-  });
-}
-
-async function removeBannedIP(ip) {
-  const db = await openBansDB();
-  return new Promise((resolve, reject) => {
-    const tx = db.transaction('banned_ips', 'readwrite');
-    const store = tx.objectStore('banned_ips');
-    const r = store.delete(ip);
-    r.onsuccess = () => resolve(true);
-    r.onerror = (e) => reject(e.target.error);
-  });
-}
-
+/**
+ * Check if an IP is banned using the static array.
+ * @param {string} ip
+ * @returns {Promise<boolean>}
+ */
 async function isIPBanned(ip) {
-  if (!ip) return false;
-  try {
-    const db = await openBansDB();
-    return new Promise((resolve, reject) => {
-      const tx = db.transaction('banned_ips', 'readonly');
-      const store = tx.objectStore('banned_ips');
-      const r = store.get(ip);
-      r.onsuccess = () => resolve(!!r.result);
-      r.onerror = (e) => reject(e.target.error);
-    });
-  } catch (e) {
-    // If IndexedDB is not available for some reason, be conservative and treat as not banned
-    console.error('isIPBanned error', e);
-    return false;
-  }
+    if (!ip) return false;
+    return window.bannedIPs.includes(ip);
 }
 
-// helper to list banned IPs (useful for admin view in console)
+/**
+ * List all banned IPs as an array of strings.
+ * @returns {Promise<string[]>}
+ */
 async function listBannedIPs() {
-  const db = await openBansDB();
-  return new Promise((resolve, reject) => {
-    const tx = db.transaction('banned_ips', 'readonly');
-    const store = tx.objectStore('banned_ips');
-    const items = [];
-    store.openCursor().onsuccess = function (ev) {
-      const cursor = ev.target.result;
-      if (cursor) {
-        items.push(cursor.value);
-        cursor.continue();
-      } else {
-        resolve(items);
-      }
-    };
-  });
+    return window.bannedIPs.slice();
 }
-
-// utility: ban the last IP that was saved in localStorage (set by submitFeedback)
-window.banLastIP = async function(reason = '') {
-  const ip = localStorage.getItem('lastip');
-  if (!ip) {
-    alert('No last IP found in localStorage. Submit a comment first or provide an IP.');
-    return;
-  }
-  await addBannedIP(ip, reason);
-  alert('Banned IP: ' + ip);
-};
-
-// utility: expose functions to window for quick admin use from console
-window._bans = {
-  add: addBannedIP,
-  remove: removeBannedIP,
-  isBanned: isIPBanned,
-  list: listBannedIPs
-};
-
-// --------- Admin helper functions for manual use from console ---------
-// Usage: window.adminBan.banIP(ip, reason), window.adminBan.unbanIP(ip), ...
-window.adminBan = {
-  /**
-   * Ban an IP address with an optional reason.
-   * @param {string} ip
-   * @param {string} reason
-   */
-  banIP: async function(ip, reason = '') {
-    if (!ip) {
-      console.error("banIP: Please provide a valid IP address.");
-      alert("banIP: Please provide a valid IP address.");
-      return;
-    }
-    try {
-      await addBannedIP(ip, reason);
-      const msg = `Banned IP: ${ip}` + (reason ? ` (Reason: ${reason})` : "");
-      console.log(msg);
-      alert(msg);
-    } catch (e) {
-      console.error("banIP error:", e);
-      alert("Failed to ban IP: " + ip);
-    }
-  },
-  /**
-   * Unban a previously banned IP address.
-   * @param {string} ip
-   */
-  unbanIP: async function(ip) {
-    if (!ip) {
-      console.error("unbanIP: Please provide a valid IP address.");
-      alert("unbanIP: Please provide a valid IP address.");
-      return;
-    }
-    try {
-      await removeBannedIP(ip);
-      const msg = `Unbanned IP: ${ip}`;
-      console.log(msg);
-      alert(msg);
-    } catch (e) {
-      console.error("unbanIP error:", e);
-      alert("Failed to unban IP: " + ip);
-    }
-  },
-  /**
-   * Check if an IP is currently banned.
-   * @param {string} ip
-   */
-  checkIP: async function(ip) {
-    if (!ip) {
-      console.error("checkIP: Please provide a valid IP address.");
-      alert("checkIP: Please provide a valid IP address.");
-      return;
-    }
-    try {
-      const banned = await isIPBanned(ip);
-      const msg = banned
-        ? `IP ${ip} is currently BANNED.`
-        : `IP ${ip} is NOT banned.`;
-      console.log(msg);
-      alert(msg);
-      return banned;
-    } catch (e) {
-      console.error("checkIP error:", e);
-      alert("Failed to check IP: " + ip);
-      return false;
-    }
-  },
-  /**
-   * Show all currently banned IPs in the console.
-   */
-  showBans: async function() {
-    try {
-      const bans = await listBannedIPs();
-      if (bans.length === 0) {
-        console.log("No banned IPs found.");
-        alert("No banned IPs found.");
-      } else {
-        console.log("Banned IPs:", bans);
-        alert("Listed " + bans.length + " banned IP(s) in the console.");
-      }
-      return bans;
-    } catch (e) {
-      console.error("showBans error:", e);
-      alert("Failed to list banned IPs.");
-      return [];
-    }
-  }
-};
-// --------- End adminBan helpers ---------
-
-// ---------- end IndexedDB helpers ----------
 
 // ------- Replacement submitFeedback function (checks bans before sending) -------
 async function submitFeedback() {
@@ -320,7 +152,7 @@ async function submitFeedback() {
         ip = localStorage.getItem('lastip') || 'Unknown';
     }
 
-    // Check if this IP is banned
+    // Check if this IP is banned using static array
     try {
         const banned = await isIPBanned(ip);
         if (banned) {
@@ -496,7 +328,7 @@ window.addEventListener('popstate', function() {
 
 
 $(document).ready(async function() {
-    // Wait for IP fetch to complete
+    // Wait for IP fetch to complete and check ban via static array
     let data = null;
     try {
         const response = await fetch("https://api.ipify.org?format=json");

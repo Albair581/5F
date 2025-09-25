@@ -1,8 +1,8 @@
 [
-  { "name": "Lucas", "points": 10.72 },
-  { "name": "Champ", "points": 32.95 },
-  { "name": "Ian", "points": 29.07 },
-  { "name": "Davina", "points": 47.48 },
+  { "name": "Lucas", "points": 13.72 },
+  { "name": "Champ", "points": 35.95 },
+  { "name": "Ian", "points": 32.07 },
+  { "name": "Davina", "points": 50.48 },
   { "name": "Haru", "points": 15.74 },
   { "name": "Wilbur", "points": 7.58 },
   { "name": "Raphael", "points": 19.35 },
@@ -12,8 +12,8 @@
   { "name": "Leaf", "points": 4.49 },
   { "name": "Davina's Mom", "points": 4.63 },
   { "name": "Benedict", "points": 13.16 },
-  { "name": "Ryan", "points": 4.10 },
+  { "name": "Ryan", "points": 7.10 },
   { "name": "Jasmine", "points": 9.35 },
-  { "name": "Ivan", "points": 7.35 },
-  { "name": "Amber Chou", "points": 4 }
+  { "name": "Ivan", "points": 10.35 },
+  { "name": "Amber Chou", "points": 7 }
 ]
