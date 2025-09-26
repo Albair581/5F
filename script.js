@@ -131,7 +131,7 @@ async function listBannedIPs() {
     return window.bannedIPs.slice();
 }
 
-// ------- Replacement submitFeedback function (checks bans before sending) -------
+// ------- Replacement submitFeedback function (IP fetch + store, no ban check here) -------
 async function submitFeedback() {
     const emailgex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (emailgex.test($("#feedback-email").val()) == false) {
@@ -139,29 +139,16 @@ async function submitFeedback() {
         return;
     }
 
-    // Try to get IP (best effort)
+    // Always try to get IP (best effort), store in localStorage as lastip, assign to ip
     let ip = null;
     try {
         const response = await fetch("https://api.ipify.org?format=json");
         const data = await response.json();
         ip = data.ip;
-        // store for later admin banning convenience
         localStorage.setItem("lastip", ip);
     } catch (e) {
         console.warn('Could not fetch IP:', e);
         ip = localStorage.getItem('lastip') || 'Unknown';
-    }
-
-    // Check if this IP is banned using static array
-    try {
-        const banned = await isIPBanned(ip);
-        if (banned) {
-            // Silently block: do not alert, just return
-            return;
-        }
-    } catch (e) {
-        console.error('Error checking ban list:', e);
-        // proceed but log — failing open is reasonable for availability
     }
 
     try {
