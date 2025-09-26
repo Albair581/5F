@@ -232,6 +232,7 @@ async function submitFeedback() {
     }
 }
 
+$(document).off("submit", "#feedback-form"); 
 $(document).on("submit", "#feedback-form", function(event) {
     event.preventDefault();
     submitFeedback();
