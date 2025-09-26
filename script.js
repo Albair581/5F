@@ -282,13 +282,6 @@ function loadPage(page, lang, book) {
                 const blueq = `<br><h3>If you see a blue question mark, reloading the page should fix the issue.<br>若出現藍色背景上的問號，重新加載即可解決問題。<br>青い背景に疑問符が表示された場合は、ページを再読み込みしてください。</h3>`;
                 if (book == "saytoben") {
                     $("#bookview-board").html(remil + blueq.toString() + '<br><br>' + bookd);
-                } else if (book == "teachers2025") {
-                    $("#bookview-board").html(remil + blueq.toString() + '<br><br>' + bookd + $("#bookview-board").html());
-                    $("#feedback-form").attr("data-book", book);
-                    $.get(`templates/Feedbacks/${book}.html`, function(feedbacks) {
-                        $("#other-feedbacks").empty();
-                        $("#other-feedbacks").append(feedbacks);
-                    });
                 } else {
                     $("#bookview-board").html(remil + blueq.toString() + '<br><br>' + bookd + $("#bookview-board").html());
                     $("#feedback-form").attr("data-book", book);
