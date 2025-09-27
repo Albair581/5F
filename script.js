@@ -259,6 +259,8 @@ function loadPage(page, lang, book) {
     // Load content using basePage
     $.get(`templates/${basePage}.html`, function(data) {
         $("#page-content").empty();
+        if (basePage == "board") $("#page-content").css("padding", "0");
+        else $("#page-content").css("padding", "20px");
         $('#page-content').append(data);
         if (basePage == 'ebooks') {
             loadBooks();
