@@ -139,6 +139,8 @@ async function submitFeedback() {
         return;
     }
 
+    alert("Submitting feedback, please wait... 正在送出回饋，請稍候... 送信中、しばらくお待ちください...");
+
     // Always try to get IP (best effort), store in localStorage as lastip, assign to ip
     let ip = null;
     try {
