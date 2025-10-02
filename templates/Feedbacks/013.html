@@ -1,3 +1,22 @@
+<style>
+  .avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;        /* makes it circular */
+    border: 3px solid var(--primary-color);  /* custom border color */
+    padding: 3px;              /* space between image and border */
+    background: white;         /* ring background */
+    object-fit: cover;         /* keeps image from stretching */
+  }
+
+  /* Optional: hover effect */
+  .avatar:hover {
+    border-color: var(--secondary-color);
+    transform: scale(1.05);
+    transition: 0.3s ease;
+  }
+</style>
+
 <div style="font-family: inherit; font-size: 12px" class="boxxx-card">
     <div
     style="
@@ -12,10 +31,15 @@
         <tr>
             </td>
             <td style="vertical-align: top">
-                <div style="color: var(--primary-color); font-size: 16px; display: flex;">
-                <strong>Bella</strong>
+                <div style="display: flex; align-items: flex-end; gap: 12px;">
+                    <!-- <img src="https://static.vecteezy.com/system/resources/previews/001/912/726/original/beautiful-woman-in-frame-circular-avatar-character-free-vector.jpg" class="avatar"> -->
+                    <div>
+                        <div style="color: var(--primary-color); font-size: 16px;">
+                            <strong>Bella</strong>
+                        </div>
+                        <div style="color: var(--text-color); font-size: 15px">2025/9/30 下午8:33:49</div>
+                    </div>
                 </div>
-                <div style="color: var(--text-color); font-size: 15px">2025/9/30 下午8:33:49</div>
                 <br>
                 <p style="font-size: 18px; font-style: italic;">
                     I think this one was the most educational magazine I've ever seen! 👍👍👍👍👍
