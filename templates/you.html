@@ -55,25 +55,21 @@
             localStorage.getItem("priorreply") && $("#inventory-box-div").append(`
                 <div class="perk-box">
                     <img src="perks/priorreply.svg" alt="Prior Reply" class="perk-img" style="width: 100px;">
-                    <p>x${JSON.parse(localStorage.getItem("priorreply")).quantity}</p>    
                 </div>
             `);
             localStorage.getItem("supercomment") && $("#inventory-box-div").append(`
                 <div class="perk-box">
                     <img src="perks/supercomment.svg" alt="Super Comment" class="perk-img" style="width: 100px;">
-                    <p>x${JSON.parse(localStorage.getItem("supercomment")).quantity}</p>    
                 </div>
             `);
             localStorage.getItem("websiteskin") && $("#inventory-box-div").append(`
                 <div class="perk-box">
                     <img src="perks/skin.svg" alt="Website Skin" class="perk-img" style="width: 100px;">
-                    <p>x${JSON.parse(localStorage.getItem("websiteskin")).quantity}</p>    
                 </div>
             `);
             localStorage.getItem("betaticket") && $("#inventory-box-div").append(`
                 <div class="perk-box">
                     <img src="perks/earlyview.svg" alt="Beta Ticket" class="perk-img" style="width: 100px;">
-                    <p>x${JSON.parse(localStorage.getItem("betaticket")).quantity}</p>    
                 </div>
             `);
         </script>
@@ -166,8 +162,8 @@
         <script>
             $("#exchange-button").click(function() {
                 const perks = {
-                    // "1": "priorreply",
-                    // "2": "supercomment",
+                    "1": "priorreply",
+                    "2": "supercomment",
                     "3": "websiteskin",
                     "4": "betaticket"
                 }
@@ -216,13 +212,11 @@
                 }
 
                 // give perk
-                const quant = localStorage.getItem(perks[decoded[3].toString()]) ? JSON.parse(localStorage.getItem(perks[decoded[3].toString()])).quantity + parseInt(decoded[4]) : parseInt(decoded[4]);
                 const used = localStorage.getItem(perks[decoded[3].toString()]) ? JSON.parse(localStorage.getItem(perks[decoded[3].toString()])).code_used : "";
                 localStorage.setItem(perks[decoded[3].toString()], JSON.stringify({
                     id: decoded[3],
                     redeemedAt: Date.now(),
                     code_used: used + serial,
-                    quantity: quant
                 }));
                 let redeemed = localStorage.getItem("redeemed") ? JSON.parse(localStorage.getItem("redeemed")) : [];
                 redeemed.push(serial);
