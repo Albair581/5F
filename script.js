@@ -41,7 +41,7 @@ function loadLanguage(lang) {
 
 // NOTE:
 // ---------------------------------------------------------------------------------//
-const opened_books = ["000", "001", "003", "004", "005", "008", "009", "saytoben", "summer2025", "010", "011", "012", "teachers2025", "013", "014"];
+const opened_books = ["000", "001", "003", "004", "005", "008", "009", "saytoben", "summer2025", "010", "011", "012", "teachers2025", "013", "014", "015"];
 const beta_books = [];
 // ---------------------------------------------------------------------------------//
 
@@ -244,7 +244,7 @@ function loadPage(page, lang, book) {
             $.get(`templates/Books/${book}.html`, function(bookd) {
                 const remil = `<h3>Please RESPECT the copyrights. 請尊重版權。著作権を尊重してください。</h3>`;
                 const blueq = `<br><h3>If you see a blue question mark, reloading the page should fix the issue.<br>若出現藍色背景上的問號，重新加載即可解決問題。<br>青い背景に疑問符が表示された場合は、ページを再読み込みしてください。</h3>`;
-                if (book == "saytoben") {
+                if (book == "saytoben" || book == "015") {
                     $("#bookview-board").html(remil + blueq.toString() + '<br><br>' + bookd);
                 } else {
                     $("#bookview-board").html(remil + blueq.toString() + '<br><br>' + bookd + $("#bookview-board").html());
