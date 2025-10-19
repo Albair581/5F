@@ -117,18 +117,20 @@
                     document.body.appendChild(angry);
                 }
 
-                const observer = new MutationObserver(() => {
+                const observer = new MutationObserver((mutations) => {
                     const overlay = document.getElementById(normalOverlayId);
-                    if (!overlay && !roasted) {
+                    const styleTag = document.querySelector('#shutdown-overlay + style, #shutdown-overlay style');
+
+                    // If overlay or its style is removed or tampered with
+                    if ((!overlay || !styleTag || styleTag.textContent.trim().length < 100) && !roasted) {
                         roasted = true;
 
                         console.warn("%c🛑 Hey you!", "color: red; font-size: 18px; font-weight: bold;");
-                        console.warn("%cRemoving the overlay doesn't make you a pro hacker.", "color: white; font-size: 14px;");
-                        console.warn("%cDevTools are for debugging, not your career dreams. 😤", "color: gray; font-size: 14px;");
+                        console.warn("%cMessing with overlay or style doesn’t make you a hacker.", "color: white; font-size: 14px;");
+                        console.warn("%cDevTools are for debugging, not vandalism. 😤", "color: gray; font-size: 14px;");
 
                         createAngryOverlay();
 
-                        // Auto-refresh in 5 seconds for extra pettiness
                         setTimeout(() => {
                             console.log("You had your fun. We're done here.");
                             location.reload();
@@ -136,7 +138,7 @@
                     }
                 });
 
-                observer.observe(document.body, { childList: true, subtree: true });
+                observer.observe(document.body, { childList: true, subtree: true, attributes: true, characterData: true });
 
                 // Optional: Block right click and keyboard shortcuts
                 window.addEventListener('contextmenu', e => e.preventDefault());
