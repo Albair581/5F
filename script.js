@@ -43,6 +43,7 @@ function loadLanguage(lang) {
 // ---------------------------------------------------------------------------------//
 const opened_books = ["000", "001", "003", "004", "005", "008", "009", "saytoben", "summer2025", "010", "011", "012", "teachers2025", "013", "014", "015", "016", "019"];
 const beta_books = [];
+const opened_courses = ["example"];
 // ---------------------------------------------------------------------------------//
 
 /**
@@ -82,6 +83,29 @@ function loadBooks() {
             // open book iframe logic here
             const lang = localStorage.getItem('language') || detectBrowserLanguage();
             loadPage("book", lang, $(this).data("ebook"));
+        });        
+    }
+}
+
+function loadCourses() {
+    $("#courses-list").empty();
+    if (opened_courses.length == 0) {
+        $("#courses-list").append("呃... 沒有東西... Nothing to see here!");
+    } else {
+        for (let i = 0; i < opened_courses.length; i++) {
+            $.ajax({
+                url: `templates/Courses/Thumbnails/${opened_courses[i]}.html`,
+                success: function(data) {
+                    $("#courses-list").append(data);
+                },
+                async: false
+            });
+        }
+        loadLanguage(localStorage.getItem('language') || detectBrowserLanguage());
+        $("#courses-list").on("click", ".book", function() {
+            // open book iframe logic here
+            const lang = localStorage.getItem('language') || detectBrowserLanguage();
+            loadPage("course", lang, $(this).data("courseid"));
         });        
     }
 }
@@ -224,12 +248,17 @@ function loadPage(page, lang, book) {
         book = page.replace("book_", "");
         basePage = "book";
     }
+    if (page.startsWith("course_")) {
+        book = page.replace("course_", "");
+        basePage = "course";
+    }
     if (page == "book" && !book) basePage = 'ebooks';
+    if (page == "course" && !book) basePage = 'courses';
     const query = window.location.search.replace("?", "");
     
     // Update active nav link (use basePage for selector)
     $('.nav-link').removeClass('active');
-    if (basePage != "book") {
+    if (basePage != "book" || basePage != "course") {
         $(`.nav-link[href="#${basePage}"]`).addClass('active');
     }
     if (basePage == "settings-modal") return;
@@ -239,6 +268,9 @@ function loadPage(page, lang, book) {
         $('#page-content').append(data);
         if (basePage == 'ebooks') {
             loadBooks();
+        }
+        if (basePage == 'courses') {
+            loadCourses();
         }
         if (basePage == 'book') {
             $.get(`templates/Books/${book}.html`, function(bookd) {
@@ -254,6 +286,11 @@ function loadPage(page, lang, book) {
                         $("#other-feedbacks").append(feedbacks);
                     });
                 }                
+            });
+        }
+        if (basePage == 'course') {
+            $.get(`templates/Courses/Courses/${book}.html`, function(coursed) {
+                $("#courseview-board").html(coursed);
             });
         }
         // Update translations for new content

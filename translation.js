@@ -73,8 +73,9 @@ const translations = {
         "antispam": "Please do not spam feedbacks or post inappropriate content. Inappropriate content may vary, and we will leave that to the system bot to decide.If we detect suspicious activity, you will get a warning.",
         "antispam2": "Please wait until the system submit the feedback and opens a message prompt. Don't click the button twice. Thank you.",
         "board": "Board",
-        "course": "Courses",
-        "courses": "Interesting Courses",
+        "courses": "Courses",
+        "our-courses": "Our Courses",
+        "course": "Course",
         "multi-board": "Multi-purpose Whiteboard (BETA)",
         "refresh-rem": "Close and reopen this APP frequently to get the latetst updates. We can't do it for you on mobile because of regulations. Another reason is that Albert is simply too lazy do research on how to do it for you, so..."
     },
@@ -152,8 +153,9 @@ const translations = {
         "antispam": "請不要亂留言。亂留言包括但不限於一直留言、不雅言語、不恰當內容。如果系統偵測到異常活動，將發出警告。",
         "antispam2": "請等系統送出回饋並跳出訊息提示後再關閉視窗。請勿重複點擊按鈕。謝謝。",
         "board": "互動板",
+        "courses": "課程",
         "course": "課程",
-        "courses": "課外的有趣課程",
+        "our-courses": "我們的課程",
         "multi-board": "多功能白板 (BETA)",
         "refresh-rem": "我們建議經常完全關閉應APP在開啟來獲得最新更新。我們不能幫您做，應為Apple還有安卓太機車了。另外的原因則是因為Albert懶得研究如何幫您做，所以就這樣吧..."
     },
@@ -231,8 +233,9 @@ const translations = {
         "antispam": "スパムフィードバックや不適切な内容の投稿はご遠慮ください。不適切な内容は様々ですが、その判断はシステムボットに委ねます。不審な行為を検出した場合は、警告が表示されます。",
         "antispam2": "システムがフィードバックを送信し、メッセージプロンプトを開くまでお待ちください。ボタンを二度クリックしないでください。ありがとうございます。",
         "board": "ボード",
+        "courses": "コース",
         "course": "コース",
-        "courses": "興味深いコース",
+        "our-courses": "私たちのコース",
         "multi-board": "多目的ホワイトボード (BETA)",
         "refresh-rem": "最新のアップデートを得るために、このAPPを頻繁に閉じたり開いたりしてください。我々は規制のためにあなたのためにモバイルでそれを行うことはできません。もう一つの理由は、アルバートは単にあなたのためにそれを行う方法についての研究を行うにはあまりにも怠惰なので、..."
     }
