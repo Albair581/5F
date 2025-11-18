@@ -75,7 +75,7 @@
     transition: background-color 0.3s, color 0.3s;
 }
 
-#books-list {
+#books-list, #courses-list {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;

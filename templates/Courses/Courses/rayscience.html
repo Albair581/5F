@@ -1,0 +1,59 @@
+<div id="page">
+    <div class="boxxx">
+        <h2>Course Information</h2>
+        <p>
+            Course name: Ray's Science Q&A Course<br>
+            Instructor: Ray<br>
+            Description: A course to ask any questions about science. If Ray can't answer it, you'll get a point.<br>
+            Difficulty: N/A
+        </p>
+    </div>
+    <br>
+    <div class="boxxx">
+        <h2>Course Content</h2>
+        <table class="fancy-table">
+                <colgroup>
+                    <col style="width: 10%;">
+                    <col style="width: 90%;">
+                </colgroup>
+                <tbody id="ranking-tbody">
+                    <tr id="qaitem" style="cursor: pointer;">
+                        <td>1</td>
+                        <td>Question Answering</td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+</div>
+
+<script>
+    $("#qaitem").click(function() {
+        $("#page").empty();
+        $("#page").append(`
+<div class="slides-container">
+  <iframe 
+    src="https://docs.google.com/forms/d/e/1FAIpQLSc_Rm4wTVhUzp_49dM7yBraNyPQsqngRQh5lnIVvHxTJL8WIw/viewform?embedded=true" 
+    frameborder="0"
+    allowfullscreen
+  >Loading... 加載中......</iframe>
+</div>
+
+<style>
+.slides-container {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+}
+
+.slides-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+</style>
+        `);
+    });
+</script>
