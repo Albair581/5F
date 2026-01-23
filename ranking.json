@@ -1,14 +1,14 @@
 [
   { "name": "Lucas", "points": 19.97 },
   { "name": "Champ", "points": 49.54 },
-  { "name": "Ian", "points": 44.58 },
+  { "name": "Ian", "points": 47.58 },
   { "name": "Davina", "points": 88.43 },
   { "name": "Haru", "points": 20.10 },
   { "name": "Wilbur", "points": 12.12 },
   { "name": "Raphael", "points": 6.67 },
   { "name": "Bella", "points": 28.09 },
   { "name": "Jeffrey", "points": 30.32 },
-  { "name": "Kimi", "points": 34.39 },
+  { "name": "Kimi", "points": 35.39 },
   { "name": "Leaf", "points": 5.72 },
   { "name": "Davina's Mom", "points": 5.92 },
   { "name": "Benedict", "points": 16.81 },
@@ -17,6 +17,6 @@
   { "name": "Ivan", "points": 16.87 },
   { "name": "Amber Chou", "points": 25.83 },
   { "name": "Chelsea", "points": 14.21 },
-  { "name": "Annie", "points": 2.32},
+  { "name": "Annie", "points": 3.32},
   { "name": "Emma", "points": 3.31 }
 ]
