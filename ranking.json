@@ -1,7 +1,7 @@
 [
   { "name": "Lucas", "points": 19.97 },
   { "name": "Champ", "points": 49.54 },
-  { "name": "Ian", "points": 49.58 },
+  { "name": "Ian", "points": 50.58 },
   { "name": "Davina", "points": 88.43 },
   { "name": "Haru", "points": 20.10 },
   { "name": "Wilbur", "points": 12.12 },
@@ -17,6 +17,6 @@
   { "name": "Ivan", "points": 16.87 },
   { "name": "Amber Chou", "points": 25.83 },
   { "name": "Chelsea", "points": 19.21 },
-  { "name": "Annie", "points": 3.32},
+  { "name": "Annie", "points": 6.32},
   { "name": "Emma", "points": 3.31 }
 ]
